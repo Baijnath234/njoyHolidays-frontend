@@ -23,9 +23,9 @@ export default function LuxuryDestinations() {
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
             Let Adams & Butler open up a world of wonder and create magical memories
-            that stay with you far beyond your travels. Whether you're seeking a cultural city break,
+            that stay with you far beyond your travels. Whether you&apos;re seeking a cultural city break,
             a child-friendly family holiday, unlimited adventure, a romantic escape, or a unique journey,
-            we're here to handcraft every moment just for you.
+            we&apos;re here to handcraft every moment just for you.
           </p>
         </div>
 

@@ -35,12 +35,12 @@ const TestimonialSection = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          I had a lovely conversation with Mr. Eisenhart, and he couldn't say enough about how wonderful their trip was.
-          He gave me some wonderful feedback that I'd love to share with you. They were very pleased with their guide
+          I had a lovely conversation with Mr. Eisenhart, and he couldn&apos;t say enough about how wonderful their trip was.
+          He gave me some wonderful feedback that I&apos;d love to share with you. They were very pleased with their guide
           in Ireland, Bill. They said that he was absolutely wonderful. They said that their full-day Connemara music tour
           was outstanding. Highlight of the trip. Their guide for their walking tour in Dublin, Frankie, was very good –
           particularly with engaging the kids. They all really enjoyed the bike ride, falconry, and the surfing lesson.
-          Thank you so much for your help in putting this trip together. Mr. Eisenhart really couldn't stop gushing about
+          Thank you so much for your help in putting this trip together. Mr. Eisenhart really couldn&apos;t stop gushing about
           how this was a trip of a lifetime.
         </motion.p>
 

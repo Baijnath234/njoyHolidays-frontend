@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>NJOY Holiday's</title>
+        <title>NJOY Holiday&apos;s</title>
       </Head>
 
       <main className="min-h-screen text-white font-sans relative overflow-hidden">

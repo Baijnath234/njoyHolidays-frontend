@@ -134,7 +134,7 @@ export default function OffresPage() {
       {/* Why Choose NJOY Holiday's Section */}
       <section>
         <h2 className="text-4xl font-extrabold mb-14 text-center text-indigo-700">
-          Why Choose NJOY Holiday's 🚀
+          Why Choose NJOY Holiday&apos;s 🚀
         </h2>
         <div className="grid md:grid-cols-4 gap-10 text-center">
           {[

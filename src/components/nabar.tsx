@@ -22,7 +22,7 @@ export default function NavBar() {
     <header className="relative flex items-center justify-between px-6 py-4 text-black bg-transparent z-10">
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
-        <a href="/" className="flex items-center ">
+        <a className="flex items-center ">
           <div className="relative w-40 h-40 " >
             <Image
               src="/images/logo2.png"

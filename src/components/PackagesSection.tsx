@@ -58,7 +58,7 @@ export default function PackagesSection() {
   return (
     <section className="py-16 px-6 bg-gray-50">
       <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">
-        Exclusively Curated: <span className="text-blue-600">Tripoto's Mindful Retreats</span>
+        Exclusively Curated: <span className="text-blue-600">Tripoto&apos;s Mindful Retreats</span>
       </h2>
 
       <Swiper

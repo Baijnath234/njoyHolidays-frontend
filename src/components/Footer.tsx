@@ -81,7 +81,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center mt-12 space-y-8 md:space-y-0">
           {/* Left side */}
           <div className="text-center md:text-left">
-            <div className="text-white text-2xl font-bold mb-4">NJOY HOLIDAY'S</div>
+            <div className="text-white text-2xl font-bold mb-4">NJOY HOLIDAY&apos;S</div>
             <div className="space-y-1">
               <p>sales@njoyholidays.com</p>
               <p>Ranchi Toll Free: +91 700454818</p>
@@ -107,7 +107,7 @@ export default function Footer() {
             <a href="#" className="hover:text-white">Sustainability Policy</a>
             <a href="#" className="hover:text-white">Privacy Policy</a>
           </div>
-          <p>NJOY Holiday's ©2025 | Site by Ranchi</p>
+          <p>NJOY Holiday&apos;s ©2025 | Site by Ranchi</p>
         </div>
       </div>
 
