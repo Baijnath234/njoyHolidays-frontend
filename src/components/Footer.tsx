@@ -121,3 +121,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+// https://www.youtube.com/watch?v=mhQWPV8GUDw
