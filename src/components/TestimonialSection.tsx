@@ -79,13 +79,6 @@ const TestimonialSection = () => {
           CHAT WITH US
         </button>
       </div>
-
-      {/* Scroll To Top */}
-      <div className="fixed bottom-10 right-10">
-        <button className="bg-primary text-white p-4 rounded-full shadow-xl hover:bg-primary-dark transition-all duration-300">
-          <span className="text-2xl">↑</span>
-        </button>
-      </div>
     </section>
   );
 };

@@ -123,3 +123,4 @@ export default function Footer() {
 }
 
 // https://www.youtube.com/watch?v=mhQWPV8GUDw
+// fixed bottom-10 right-10
