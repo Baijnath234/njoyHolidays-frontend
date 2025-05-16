@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import Images from "../../public/asset/images/logo4.png";
+
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +25,9 @@ export default function NavBar() {
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
         <a className="flex items-center ">
-          <div className="relative w-40 h-40 " >
+          <div className="relative w-35 h-35 " >
             <Image
-              src="/images/logo2.png"
+               src={Images.src}
               alt="NJOY Holiday's Logo"
               layout="fill"
               objectFit="contain"

@@ -3,18 +3,21 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Banner from "../../public/asset/images/Banner.png";
+import Banner1 from "../../public/asset/images/Banner1.png";
+import Banner2 from "../../public/asset/images/Banner2.png";
 
 const slides = [
   {
-    image: "/images/beach.jpg",
+    image: Banner.src,
     title: "Let's Go with Enjoy Holidays",
   },
   {
-    image: "/images/image.jpg",
+    image: Banner1.src,
     title: "SAVE AT SANDALS® RESORTS",
   },
   {
-    image: "/images/image6.jpg",
+    image: Banner2.src,
     title: "EXPERIENCE LUXURY IN PARADISE",
   },
 ];
@@ -36,21 +39,16 @@ const WelcomePage = () => {
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative w-full h-screen">
-            {/* <img
-              src="/images/logo2.png"
-              alt="Logo"
-              className="absolute align-items-center justify-content-center w-50 z-20"
-            /> */}
             {/* Background image (full width and height) */}
             <div
-              className="absolute inset-0 w-full h-full bg-cover bg-center blur-[2px] brightness-75 z-0"
+              className="absolute inset-0 w-full h-full bg-cover bg-center  z-0"
               style={{ backgroundImage: `url(${slide.image})` }}
             />
             {/* Foreground content */}
             <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-              <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white tracking-tight leading-tight mb-6 animate-fadeIn">
+              {/* <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white tracking-tight leading-tight mb-6 animate-fadeIn">
                 {slide.title}
-              </h1>
+              </h1> */}
               <p className="text-center text-lg md:text-2xl font-medium text-gray-300 max-w-2xl mb-8 animate-fadeIn delay-200">
                 UP TO 65% OFF AND UP TO ₹100 INSTANT CREDITS
               </p>
