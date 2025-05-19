@@ -1,33 +1,43 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Images from "../../public/asset/images/logo4.png";
-
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleModal = () => setShowModal(per => !per);
 
-  console.log("Menu Open:", menuOpen);
+  useEffect(() => {
+    window.onscroll = () => {
+      setIsScrolled(window.pageYOffset === 0 ? false : true)
+      return () => (window.onscroll = null)
+    }
+  }, [])
 
   const navLinks = [
-    { label: "Vacations", href: "#" },
-    { label: "Destinations", href: "#" },
-    { label: "Cruises", href: "#" },
-    { label: "Guided Tours", href: "#" },
-    { label: "Group Travel", href: "#" },
-    { label: "Offers", href: "#" },
-  ];
+    "Vacations",
+    "Destinations",
+    "Visa",
+    "Flight Ticket",
+    "Hotels Booking",
+    "Offers",
+  ].map((label) => ({
+    label,
+    href: "/" + label.toLowerCase().replace(/\s+/g, "-"),
+  }));
 
   return (
-    <header className="relative flex items-center justify-between px-6 py-4 text-black bg-transparent z-10">
+   <header className={`sticky top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"}`}>
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
         <a className="flex items-center ">
-          <div className="relative w-35 h-35 " >
+          <div className="relative w-35 h-35 ">
             <Image
-               src={Images.src}
+              src={Images.src}
               alt="NJOY Holiday's Logo"
               layout="fill"
               objectFit="contain"

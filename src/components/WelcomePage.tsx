@@ -8,57 +8,63 @@ import Banner1 from "../../public/asset/images/Banner1.png";
 import Banner2 from "../../public/asset/images/Banner2.png";
 
 const slides = [
-  {
-    image: Banner.src,
-    title: "Let's Go with Enjoy Holidays",
-  },
-  {
-    image: Banner1.src,
-    title: "SAVE AT SANDALS® RESORTS",
-  },
-  {
-    image: Banner2.src,
-    title: "EXPERIENCE LUXURY IN PARADISE",
-  },
+  { image: Banner.src },
+  { image: Banner1.src },
+  { image: Banner2.src },
 ];
 
 const WelcomePage = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 2500,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[70vh] overflow-hidden">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="relative w-full h-screen">
-            {/* Background image (full width and height) */}
-            <div
-              className="absolute inset-0 w-full h-full bg-cover bg-center  z-0"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
-            {/* Foreground content */}
-            <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-              {/* <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white tracking-tight leading-tight mb-6 animate-fadeIn">
-                {slide.title}
-              </h1> */}
-              <p className="text-center text-lg md:text-2xl font-medium text-gray-300 max-w-2xl mb-8 animate-fadeIn delay-200">
-                UP TO 65% OFF AND UP TO ₹100 INSTANT CREDITS
-              </p>
-              <button className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 px-10 py-4 rounded-full text-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 animate-fadeIn delay-400">
+          <div key={index} className="relative w-full h-[70vh]">
+            {/* Use an img tag for better image scaling */}
+            <div className="absolute w-full">
+              <img src={slide.image} className="w-full h-[70vh]" />
+              {/* Button centered over image */}
+              <div className="relative inset-0 flex items-center justify-center z-10">
+                <button className="...">Learn More</button>
+              </div>
+            </div>
+
+            {/* Centered Button */}
+            <div className="relative z-10 flex items-center justify-center h-full">
+              <button className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 px-10 py-4 rounded-full text-xl font-semibold shadow-lg transform transition-all duration-500 animate-bounce-in">
                 Learn More
               </button>
             </div>
           </div>
         ))}
       </Slider>
+
+      {/* Custom Animation */}
+      <style jsx>{`
+        @keyframes bounce-in {
+          0% {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        .animate-bounce-in {
+          animation: bounce-in 1s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };

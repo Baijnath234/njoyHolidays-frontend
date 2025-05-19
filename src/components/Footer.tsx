@@ -107,7 +107,7 @@ export default function Footer() {
             <a href="#" className="hover:text-white">Sustainability Policy</a>
             <a href="#" className="hover:text-white">Privacy Policy</a>
           </div>
-          <p>NJOY Holiday&apos;s ©2025 | Site by Ranchi</p>
+          <p>©2025 NJOY Holiday&apos;s  – NJOY Holidayz PVT LTD, All rights reserved </p>
         </div>
       </div>
 

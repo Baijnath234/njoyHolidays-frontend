@@ -1,9 +1,11 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import Image from 'next/image';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Image from "next/image";
+import PackageCard from "./common/packageCards";
+import {PackageData} from '../data/data'
 
 const packagesData = [
   {
@@ -54,55 +56,79 @@ const packagesData = [
   // Add more slides if you want
 ];
 
-export default function PackagesSection() {
+export default function PackagesSectio() {
   return (
-    <section className="py-16 px-6 bg-gray-50">
-      <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">
-        Exclusively Curated: <span className="text-blue-600">Tripoto&apos;s Mindful Retreats</span>
-      </h2>
+    <>
+      <section className="py-16 px-6 bg-gray-50">
+        <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">
+          Exclusively Curated:{" "}
+          <span className="text-blue-600">Tripoto&apos;s Mindful Retreats</span>
+        </h2>
 
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={20}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="pb-10"
-      >
-        {packagesData.map((pkg, idx) => (
-          <SwiperSlide key={idx}>
-            <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
-              {/* Badge */}
-              <div className="absolute top-4 left-4 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-full shadow">
-                {pkg.badge}
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={20}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="pb-10"
+        >
+          {packagesData.map((pkg:any, idx:any) => (
+            <SwiperSlide key={idx}>
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
+                {/* Badge */}
+                <div className="absolute top-4 left-4 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-full shadow">
+                  {pkg.badge}
+                </div>
+
+                {/* Image */}
+                <div className="relative h-56 w-full">
+                  <Image
+                    src={pkg.image}
+                    alt={pkg.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <p className="text-sm text-gray-400">{pkg.duration}</p>
+                  <h3 className="text-lg font-semibold mt-2 text-gray-800">
+                    {pkg.title}
+                  </h3>
+                  <p className="text-blue-500 mt-3 font-medium">
+                    {pkg.location}
+                  </p>
+                  <p className="text-gray-700 font-bold mt-1">{pkg.price}</p>
+
+                  <button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-full font-semibold hover:from-blue-600 hover:to-blue-800 transition-all">
+                    {pkg.button}
+                  </button>
+                </div>
               </div>
-
-              {/* Image */}
-              <div className="relative h-56 w-full">
-                <Image src={pkg.image} alt={pkg.title} layout="fill" objectFit="cover" />
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-sm text-gray-400">{pkg.duration}</p>
-                <h3 className="text-lg font-semibold mt-2 text-gray-800">{pkg.title}</h3>
-                <p className="text-blue-500 mt-3 font-medium">{pkg.location}</p>
-                <p className="text-gray-700 font-bold mt-1">{pkg.price}</p>
-
-                <button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-full font-semibold hover:from-blue-600 hover:to-blue-800 transition-all">
-                  {pkg.button}
-                </button>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </section>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+      <section>
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-y-auto p-6">
+          <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+            Travel Packages
+          </h1>
+          <div className="space-y-6">
+            {PackageData.map((pkg:any) => (
+              <PackageCard key={pkg.id} pkg={pkg} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
