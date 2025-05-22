@@ -1,3 +1,4 @@
+
 export const PackageData = [
   {
     id: "pkg_001",
@@ -6,16 +7,25 @@ export const PackageData = [
       city: "Paris",
       country: "France",
     },
-    category: "Weekend Getaway",
+    category: "Weekend Getaway", // or "Adventure", "Romantic", etc.
     duration: {
       nights: 2,
       days: 3,
     },
     price: 299.99,
     itinerary: [
-      { day: 1, activities: ["Arrival", "City Tour", "Eiffel Tower Visit"] },
-      { day: 2, activities: ["Louvre Museum", "Seine Cruise"] },
-      { day: 3, activities: ["Montmartre", "Departure"] },
+      {
+        day: 1,
+        activities: ["Arrival", "City Tour", "Eiffel Tower Visit"],
+      },
+      {
+        day: 2,
+        activities: ["Louvre Museum", "Seine Cruise"],
+      },
+      {
+        day: 3,
+        activities: ["Montmartre", "Departure"],
+      },
     ],
     inclusions: ["Hotel", "Breakfast", "City Tour"],
     exclusions: ["Flights", "Lunch", "Dinner"],
@@ -23,22 +33,31 @@ export const PackageData = [
     createdAt: "2025-05-18T10:00:00Z",
   },
   {
-    id: "pkg_002", // ✅ Changed from pkg_001 to pkg_002
+    id: "pkg_002",
     title: "2 Nights 3 Days in Paris",
     location: {
       city: "Paris",
       country: "France",
     },
-    category: "Weekend Getaway",
+    category: "Weekend Getaway", // or "Adventure", "Romantic", etc.
     duration: {
       nights: 2,
       days: 3,
     },
     price: 299.99,
     itinerary: [
-      { day: 1, activities: ["Arrival", "City Tour", "Eiffel Tower Visit"] },
-      { day: 2, activities: ["Louvre Museum", "Seine Cruise"] },
-      { day: 3, activities: ["Montmartre", "Departure"] },
+      {
+        day: 1,
+        activities: ["Arrival", "City Tour", "Eiffel Tower Visit"],
+      },
+      {
+        day: 2,
+        activities: ["Louvre Museum", "Seine Cruise"],
+      },
+      {
+        day: 3,
+        activities: ["Montmartre", "Departure"],
+      },
     ],
     inclusions: ["Hotel", "Breakfast", "City Tour"],
     exclusions: ["Flights", "Lunch", "Dinner"],
