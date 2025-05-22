@@ -1,27 +1,5 @@
 import { motion } from "framer-motion";
-
-
-type Package = {
-  title: string;
-  location: {
-    city: string;
-    country: string;
-  };
-  category: string;
-  duration: {
-    nights: number;
-    days: number;
-  };
-  price: number;
-  itinerary: {
-    day: number;
-    activities: string[];
-  }[];
-  inclusions: string[];
-  exclusions: string[];
-  availableDates: string[];
-};
-
+import { Package } from "./type";
 
 type PackageCardProps = {
   pkg: Package;
@@ -47,7 +25,7 @@ export default function PackageCard({pkg} : PackageCardProps) {
       <div className="mt-4">
         <h3 className="font-semibold">Itinerary:</h3>
         <ul className="list-disc ml-5 text-sm text-gray-700">
-          {pkg.itinerary.map((item:any) => (
+          {pkg.itinerary.map((item) => (
             <li key={item.day}>
               <strong>Day {item.day}:</strong> {item.activities.join(", ")}
             </li>
@@ -68,7 +46,7 @@ export default function PackageCard({pkg} : PackageCardProps) {
       <div className="mt-4">
         <h3 className="font-semibold">Available Dates:</h3>
         <ul className="text-sm text-gray-700">
-          {pkg.availableDates.map((date:any) => (
+          {pkg.availableDates.map((date) => (
             <li key={date}>{new Date(date).toLocaleDateString()}</li>
           ))}
         </ul>

@@ -74,6 +74,13 @@ export const DestinationData = [
     description: "City of lights and love",
     images: ["eiffel.jpg"],
   },
+  {
+    id: "dest_002",
+    name: "Paris",
+    country: "France",
+    description: "City of lights and love",
+    images: ["eiffel.jpg"],
+  },
 ];
 
 export const HotelsData = [
