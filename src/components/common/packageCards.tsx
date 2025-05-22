@@ -1,6 +1,33 @@
 import { motion } from "framer-motion";
 
-export default function PackageCard({ pkg }:any) {
+
+type Package = {
+  title: string;
+  location: {
+    city: string;
+    country: string;
+  };
+  category: string;
+  duration: {
+    nights: number;
+    days: number;
+  };
+  price: number;
+  itinerary: {
+    day: number;
+    activities: string[];
+  }[];
+  inclusions: string[];
+  exclusions: string[];
+  availableDates: string[];
+};
+
+
+type PackageCardProps = {
+  pkg: Package;
+};
+
+export default function PackageCard({pkg} : PackageCardProps) {
   return (
     <motion.div
       className="bg-white shadow-lg rounded-xl p-6 w-full max-w-md mx-auto mb-6 hover:shadow-2xl transition-shadow duration-300"
