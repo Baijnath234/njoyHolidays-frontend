@@ -2,10 +2,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Images from "../../public/asset/images/logo4.png";
+import Link from "next/link";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -31,7 +32,7 @@ export default function NavBar() {
   }));
 
   return (
-   <header className={`sticky top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"}`}>
+   <header className={`fixde top-0 left-0 w-full z-20 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"}`}>
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
         <a className="flex items-center ">
@@ -44,7 +45,6 @@ export default function NavBar() {
               priority
             />
           </div>
-          {/* <h2 className="text-xl font-bold">NJOY Holiday's</h2> */}
         </a>
       </div>
 
@@ -65,6 +65,14 @@ export default function NavBar() {
       <div className="hidden md:block text-sm">
         <a href="tel:+919334222448">📞 +91 9334222448</a>
       </div>
+
+      {showModal && (
+        <div onClick={toggleModal} className="absolute top-16 right-[270px] shadow-md flex flex-col gap-4 bg-white rounded-xl ">
+          <Link href={"/"}>
+          Home
+          </Link>
+        </div>
+      )}
 
       {/* Hamburger Menu Button (Mobile) */}
       <button

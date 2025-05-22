@@ -79,7 +79,7 @@ export default function PackagesSectio() {
           }}
           className="pb-10"
         >
-          {packagesData.map((pkg:any, idx:any) => (
+          {packagesData.map((pkg, idx) => (
             <SwiperSlide key={idx}>
               <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
                 {/* Badge */}
@@ -123,7 +123,7 @@ export default function PackagesSectio() {
             Travel Packages
           </h1>
           <div className="space-y-6">
-            {PackageData.map((pkg:any) => (
+            {PackageData.map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />
             ))}
           </div>
