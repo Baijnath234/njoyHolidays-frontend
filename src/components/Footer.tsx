@@ -1,6 +1,14 @@
 "use client";
 
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import Image from "next/image";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
+import Images from '../../public/asset/images/whiteLogo.png'
 
 export default function Footer() {
   return (
@@ -79,9 +87,19 @@ export default function Footer() {
 
         {/* Logo and Contact Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mt-12 space-y-8 md:space-y-0">
+          <div className="w-35 h-35 relative">
+            <Image
+              src={Images.src}
+              alt="NJOY HOLIDAY'S Logo"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
           {/* Left side */}
           <div className="text-center md:text-left">
-            <div className="text-white text-2xl font-bold mb-4">NJOY HOLIDAY&apos;S</div>
+            <div className="text-white text-2xl font-bold mb-4">
+              NJOY HOLIDAY&apos;S
+            </div>
             <div className="space-y-1">
               <p>sales@njoyholidays.com</p>
               <p>Ranchi Toll Free: +91 700454818</p>
@@ -92,28 +110,47 @@ export default function Footer() {
 
           {/* Right side - Social Links */}
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-white"><FaFacebookF size={20} /></a>
-            <a href="#" className="hover:text-white"><FaTwitter size={20} /></a>
-            <a href="#" className="hover:text-white"><FaInstagram size={20} /></a>
-            <a href="#" className="hover:text-white"><FaLinkedinIn size={20} /></a>
-            <a href="#" className="hover:text-white"><FaYoutube size={20} /></a>
+            <a href="#" className="hover:text-white">
+              <FaFacebookF size={20} />
+            </a>
+            <a href="#" className="hover:text-white">
+              <FaTwitter size={20} />
+            </a>
+            <a href="#" className="hover:text-white">
+              <FaInstagram size={20} />
+            </a>
+            <a href="#" className="hover:text-white">
+              <FaLinkedinIn size={20} />
+            </a>
+            <a href="#" className="hover:text-white">
+              <FaYoutube size={20} />
+            </a>
           </div>
         </div>
 
         {/* Bottom Links */}
         <div className="flex flex-col md:flex-row justify-between items-center mt-12 text-xs text-gray-500 space-y-4 md:space-y-0">
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-white">Terms & Conditions</a>
-            <a href="#" className="hover:text-white">Sustainability Policy</a>
-            <a href="#" className="hover:text-white">Privacy Policy</a>
+            <a href="#" className="hover:text-white">
+              Terms & Conditions
+            </a>
+            <a href="#" className="hover:text-white">
+              Sustainability Policy
+            </a>
+            <a href="#" className="hover:text-white">
+              Privacy Policy
+            </a>
           </div>
-          <p>©2025 NJOY Holiday&apos;s  – NJOY Holidayz PVT LTD, All rights reserved </p>
+          <p>
+            ©2025 NJOY Holiday&apos;s – NJOY Holidayz PVT LTD, All rights
+            reserved
+          </p>
         </div>
       </div>
 
       {/* Scroll to Top Button */}
       <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="fixed bottom-6 right-6 bg-gray-700 hover:bg-gray-600 p-3 rounded-full text-white shadow-lg z-50"
       >
         ↑

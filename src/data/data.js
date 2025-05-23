@@ -29,7 +29,7 @@ export const PackageData = [
     ],
     inclusions: ["Hotel", "Breakfast", "City Tour"],
     exclusions: ["Flights", "Lunch", "Dinner"],
-    availableDates: ["2025-06-10", "2025-07-01"],
+    availableDates: ["2025-10-06", "2025-01-07"],
     createdAt: "2025-05-18T10:00:00Z",
   },
   {
@@ -61,7 +61,7 @@ export const PackageData = [
     ],
     inclusions: ["Hotel", "Breakfast", "City Tour"],
     exclusions: ["Flights", "Lunch", "Dinner"],
-    availableDates: ["2025-06-10", "2025-07-01"],
+    availableDates: ["2025-10-06", "2025-01-07"],
     createdAt: "2025-05-18T10:00:00Z",
   },
 ];

@@ -65,7 +65,7 @@ export default function Home() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative z-30 ">
+        <section className="relative z-0">
           <WelcomePage />
         </section>
       </main>

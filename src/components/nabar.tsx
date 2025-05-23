@@ -3,21 +3,26 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Images from "../../public/asset/images/logo4.png";
 import Link from "next/link";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  console.log({ menuOpen });
+
+  // const [showModal, setShowModal] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-  const toggleModal = () => setShowModal(per => !per);
+  // const toggleModal = () => setShowModal((per) => !per);
+  const toggleProfileModal = () => setShowProfileModal((prev) => !prev);
 
   useEffect(() => {
     window.onscroll = () => {
-      setIsScrolled(window.pageYOffset === 0 ? false : true)
-      return () => (window.onscroll = null)
-    }
-  }, [])
+      setIsScrolled(window.pageYOffset === 0 ? false : true);
+      return () => (window.onscroll = null);
+    };
+  }, []);
 
   const navLinks = [
     "Vacations",
@@ -32,10 +37,14 @@ export default function NavBar() {
   }));
 
   return (
-   <header className={`fixde top-0 left-0 w-full z-20 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"}`}>
+    <header
+      className={`fixde top-0 left-0 w-full z-20 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${
+        isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"
+      }`}
+    >
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
-        <a className="flex items-center ">
+        <Link  href='/' className="flex items-center ">
           <div className="relative w-35 h-35 ">
             <Image
               src={Images.src}
@@ -45,7 +54,7 @@ export default function NavBar() {
               priority
             />
           </div>
-        </a>
+        </Link>
       </div>
 
       {/* Desktop Menu - Centered */}
@@ -61,18 +70,41 @@ export default function NavBar() {
         ))}
       </nav>
 
-      {/* Phone number - Right aligned on desktop */}
-      <div className="hidden md:block text-sm">
-        <a href="tel:+919334222448">📞 +91 9334222448</a>
-      </div>
+      {/* Right side desktop icons */}
+      <div className="hidden md:flex items-center space-x-4 text-sm relative z-40">
+        {/* Phone */}
+        <a href="tel:+919334222448" className="whitespace-nowrap">
+          📞 +91 9334222448
+        </a>
 
-      {showModal && (
-        <div onClick={toggleModal} className="absolute top-16 right-[270px] shadow-md flex flex-col gap-4 bg-white rounded-xl ">
-          <Link href={"/"}>
-          Home
-          </Link>
+        {/* Profile Icon + Modal Wrapper */}
+        <div className="relative flex items-center justify-center">
+          <button
+            onClick={toggleProfileModal}
+            className="text-xl focus:outline-none"
+          >
+            <FaUserCircle className="text-black" size={28} />
+          </button>
+
+          {/* Profile Modal */}
+          {showProfileModal && (
+            <div className="absolute top-10 right-0 shadow-lg bg-white rounded-xl p-4 w-48 flex flex-col space-y-2 text-sm z-50 border border-gray-200">
+              <Link href="/profile" className="hover:underline">
+                👤 Profile
+              </Link>
+              <Link href="/settings" className="hover:underline">
+                ⚙️ Settings
+              </Link>
+              <Link href="/about-us" className="hover:underline">
+                ℹ️ About Us
+              </Link>
+              <button className="text-left hover:underline">
+                🔐 Login / Logout
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Hamburger Menu Button (Mobile) */}
       <button
@@ -95,7 +127,7 @@ export default function NavBar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white text-black px-6 py-4 space-y-2 shadow-lg z-20">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white text-black px-6 py-4 space-y-2 shadow-lg z-0">
           {navLinks.map((link) => (
             <a
               key={link.label}
