@@ -12,7 +12,7 @@ import Images from '../../public/asset/images/whiteLogo.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400 text-sm pt-16 pb-8 relative">
+    <footer className="bg-black text-gray-400 text-sm pt-16 pb-5 relative">
       {/* Chat Button (left side) */}
       <div className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50">
         <button className="bg-gray-700 text-white px-3 py-2 rotate-[-90deg] origin-bottom-left rounded-t-md tracking-widest font-semibold hover:bg-gray-600">
@@ -98,7 +98,7 @@ export default function Footer() {
           {/* Left side */}
           <div className="text-center md:text-left">
             <div className="text-white text-2xl font-bold mb-4">
-              NJOY HOLIDAY&apos;S
+              NJOY HOLIDAYZ
             </div>
             <div className="space-y-1">
               <p>sales@njoyholidays.com</p>

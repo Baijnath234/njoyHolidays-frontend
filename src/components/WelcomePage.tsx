@@ -27,7 +27,7 @@ const WelcomePage = () => {
   };
 
   return (
-    <div className="absolute w-full h-[60vh] overflow-hidden z-0">
+    <div className="absolute w-full h-[60vh] overflow-hidden z-0 top-20">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative w-full h-[60vh]">
@@ -40,12 +40,6 @@ const WelcomePage = () => {
                 priority={index === 0}
               />
             </div>
-            {/* Centered Button */}
-            {/* <div className="relative z-10 flex items-center justify-center h-full">
-              <button className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 px-10 py-4 rounded-full text-xl font-semibold shadow-lg transform transition-all duration-500 animate-bounce-in">
-                Learn More
-              </button>
-            </div> */}
           </div>
         ))}
       </Slider>

@@ -1,13 +1,10 @@
 "use client";
 
-import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 import LuxuryDestinations from "@/components/LuxuryDestinations";
 import MatchmakerSection from "@/components/MatchmakerSection";
 import NavBar from "@/components/nabar";
 import OffresPage from "@/components/offers";
-import PackagesSection from "@/components/PackagesSection";
-import Searchbar from "@/components/searchbar";
 import TestimonialSection from "@/components/TestimonialSection";
 import TripCard from "@/components/TripCard";
 import WelcomePage from "@/components/WelcomePage";
@@ -57,36 +54,18 @@ export default function Home() {
         <title>NJOY Holiday&apos;s</title>
       </Head>
 
-      <main className="min-h-screen text-white font-sans relative overflow-hidden">
-        {/* Background Image */}
-
+      <main className="min-h-[80vh] text-white font-sans relative overflow-hidden">
+        {/* NavBar section */}
         <div className="relative z-30">
           <NavBar />
         </div>
-
         {/* Hero Section */}
         <section className="relative z-0">
           <WelcomePage />
         </section>
       </main>
-
-      {/* Search Box */}
-      <section className="relative z-30 -mt-10 flex justify-center px-6">
-        <Searchbar />
-      </section>
-
-      {/* Features Section */}
-      <section className="relative z-30 mt-28">
-        <FeaturesSection />
-      </section>
-
-      {/* Packages Section */}
-      <section className="relative z-30 mt-28">
-        <PackagesSection />
-      </section>
-
       {/* Trip Cards Section */}
-      <section className="relative z-30 mt-28 px-6">
+      <section className="relative px-6">
         <h2 className="text-4xl font-bold mb-12 text-center">
           Explore Our Top Packages
         </h2>
@@ -99,27 +78,27 @@ export default function Home() {
       </section>
 
       {/* Matchmaker Section */}
-      <section className="relative z-30 mt-28">
+      <section className="relative z-0 mt-28">
         <MatchmakerSection />
       </section>
 
       {/* Luxury Destinations Section */}
-      <section className="relative z-30 mt-28">
+      <section className="relative z-0 mt-28">
         <LuxuryDestinations />
       </section>
 
       {/* Offers Section */}
-      <section className="relative z-30 mt-28 pb-20">
+      <section className="relative z-0 mt-28">
         <OffresPage />
       </section>
 
       {/* Testimonials Section */}
-      <section className="relative z-30 mt-28">
+      <section className="relative z-0 mt-28">
         <TestimonialSection />
       </section>
 
       {/* Footer */}
-      <section className="relative z-30 mt-28 pb-20">
+      <section className="relative z-0 mt-28">
         <Footer />
       </section>
     </>

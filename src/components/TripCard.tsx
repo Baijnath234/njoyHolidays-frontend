@@ -1,6 +1,6 @@
 // components/TripCard.js
 import Image from "next/image";
-import { MapPin } from "lucide-react"; // or any icon library
+import { MapPin } from "lucide-react";
 
 interface Trip {
   image: string;
@@ -16,6 +16,8 @@ interface Trip {
 }
 
 export default function TripCard({ trip }: { trip: Trip }) {
+  console.log({trip});
+  
   return (
     <div className="w-[340px] bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="relative h-52">

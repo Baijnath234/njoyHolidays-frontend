@@ -38,13 +38,13 @@ export default function NavBar() {
 
   return (
     <header
-      className={`fixde top-0 left-0 w-full z-20 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${
-        isScrolled ? "shadow backdrop-blur bg-white/80" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 w-full z-50 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${
+        isScrolled ? "shadow backdrop-blur bg-white/80" : "shadow backdrop-blur bg-white/10"
       }`}
     >
       {/* Logo */}
       <div className="w-100 h-12 flex items-center ">
-        <Link  href='/' className="flex items-center ">
+        <Link href="/" className="flex items-center ">
           <div className="relative w-35 h-35 ">
             <Image
               src={Images.src}
