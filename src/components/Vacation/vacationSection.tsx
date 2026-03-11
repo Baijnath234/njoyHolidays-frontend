@@ -1,53 +1,62 @@
-import Link from "next/link";
-import React from "react";
+"use client";
 
-const vacationSection = () => {
+import React from "react";
+import SummarVacation from "../Vacation/SummarVacation";
+import WinterVacation from "./WinterVacation";
+import VacationCategories from "./VacationCateogies";
+import Footer from "../Layout/Footer";
+
+
+const VacationSection = () => {
+
   return (
     <div>
       <section>
-        <div className="absolute w-full h-[60vh] overflow-hidden bg-gray-100 py-12 px-4 top-20">
-          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
-            <h1 className="text-3xl font-bold mb-6 text-center">
-              Vacation Packages
+        <div className="absolute w-full h-[50vh] overflow-hidden top-20">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')",
+            }}
+          />
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Discover Your Next Vacation
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* National Section */}
-              <div className="bg-blue-50 p-4 rounded shadow">
-                <h2 className="text-xl font-semibold mb-2">
-                  🏞️ National Vacations
-                </h2>
-                <ul className="list-disc ml-5 space-y-1">
-                  <li>Yosemite National Park</li>
-                  <li>Grand Canyon Tour</li>
-                  <li>Hawaii Beach Resort</li>
-                </ul>
-              </div>
 
-              {/* International Section */}
-              <div className="bg-green-50 p-4 rounded shadow">
-                <h2 className="text-xl font-semibold mb-2">
-                  ✈️ International Vacations
-                </h2>
-                <ul className="list-disc ml-5 space-y-1">
-                  <li>Paris City Escape</li>
-                  <li>Bali Tropical Paradise</li>
-                  <li>Tokyo Cultural Adventure</li>
-                </ul>
-              </div>
-            </div>
+            <p className="mt-4 text-lg md:text-xl max-w-2xl">
+              Explore amazing destinations, exclusive deals, and unforgettable
+              travel experiences.
+            </p>
 
-            <div className="mt-8 text-center">
-              <Link href="/" className="text-blue-600 hover:underline">
-                ← Back to Home
-              </Link>
-            </div>
+            <button className="mt-6 px-6 py-3 bg-[#0dbeff] hover:bg-[#0aa8e0] text-white font-semibold rounded-lg transition">
+              Explore Packages
+            </button>
           </div>
         </div>
       </section>
 
-      <section></section>
+      <div className="mx-auto relative top-130 ">
+        <SummarVacation />
+      </div>
+      <div className="mx-auto relative top-90 ">
+        <WinterVacation />
+      </div>
+      <div className="mx-auto relative top-90 ">
+        <VacationCategories />
+      </div>
+      <div className="mx-auto relative top-90 ">
+        <Footer />
+      </div>
     </div>
   );
 };
 
-export default vacationSection;
+export default VacationSection;

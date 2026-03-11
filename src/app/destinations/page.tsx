@@ -1,5 +1,5 @@
 "use client";
-import NavBar from "@/components/nabar";
+import NavBar from "@/components/Layout/nabar";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

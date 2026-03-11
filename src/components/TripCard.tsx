@@ -16,7 +16,6 @@ interface Trip {
 }
 
 export default function TripCard({ trip }: { trip: Trip }) {
-  console.log({trip});
   
   return (
     <div className="w-[340px] bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -43,20 +42,20 @@ export default function TripCard({ trip }: { trip: Trip }) {
           <span className="text-blue-600">{trip.location}</span>
         </div>
         <div className="text-base font-bold mb-3">
-          ₹ {trip.price.toLocaleString()}{" "}
+          ₹ {trip?.price?.toLocaleString()}{" "}
           <span className="text-sm font-normal text-gray-500">
-            / {trip.unit}
+            / {trip?.unit}
           </span>
         </div>
-        <button className="bg-black text-white px-4 py-2 text-sm rounded-md hover:bg-gray-800 transition">
+        <button className="bg-[#0dbeff]/100 text-white px-4 py-2 text-sm rounded-md hover:bg-[#faca2d] transition">
           {trip.buttonLabel}
         </button>
-        {trip.partnerLogo && (
-          <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
-            <Image src={trip.partnerLogo} width={24} height={24} alt="Partner" />
+        {/* {trip.partnerLogo && (
+          <div className="mt-3 flex items-center gap-2 text-sm text-gray-500 bg-[#1e1e1f]/100">
+            <Image src={trip.partnerLogo} width={50} height={50} alt="Partner" />
             {trip.partnerText}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

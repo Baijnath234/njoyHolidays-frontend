@@ -1,4 +1,4 @@
-import NavBar from '@/components/nabar'
+import NavBar from '@/components/Layout/nabar'
 import React from 'react'
 import VacationSection from '../../components/Vacation/vacationSection'
 

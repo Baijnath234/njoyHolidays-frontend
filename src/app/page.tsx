@@ -1,106 +1,57 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import LuxuryDestinations from "@/components/LuxuryDestinations";
-import MatchmakerSection from "@/components/MatchmakerSection";
-import NavBar from "@/components/nabar";
-import OffresPage from "@/components/offers";
-import TestimonialSection from "@/components/TestimonialSection";
-import TripCard from "@/components/TripCard";
-import WelcomePage from "@/components/WelcomePage";
+import Footer from "@/components/Layout/Footer";
+import NavBar from "@/components/Layout/nabar";
+import Exploer from "@/components/welcome/Explore";
+import FlightBooking from "@/components/welcome/FlightBooking";
+import HotelBooking from "@/components/welcome/HotelBooking";
+import Visa from "@/components/welcome/Visa";
+import WelcomePage from "@/components/welcome/WelcomePage";
+import Services from "@/components/welcome/Services";
 import Head from "next/head";
+import PopularDestinations from "@/components/welcome/PopularDestinations";
+import CustomerReviews from "@/components/welcome/CustomerReviews";
+import WhyChooseUs from "@/components/welcome/WhyChooseUs";
+import ContactCTA from "@/components/welcome/ContactCTA";
 
 export default function Home() {
-  const mockTrips = [
-    {
-      image: "/images/image7.jpg",
-      title: "Bali Adventure Package",
-      locationLabel: "Bali, Indonesia",
-      duration: "7 Days",
-      location: "Ubud",
-      price: 29999,
-      unit: "person",
-      buttonLabel: "Book Now",
-      partnerLogo: "/images/trips/partner-logo.png",
-      partnerText: "In partnership with GoTravel",
-    },
-    {
-      image: "/images/image8.jpg",
-      title: "Mountain Escape",
-      locationLabel: "Swiss Alps",
-      duration: "5 Days",
-      location: "Zermatt",
-      price: 45999,
-      unit: "person",
-      buttonLabel: "Explore Now",
-    },
-    {
-      image: "/images/image9.jpg",
-      title: "Romantic Paris Getaway",
-      locationLabel: "Paris, France",
-      duration: "3 Days",
-      location: "Eiffel Tower",
-      price: 38999,
-      unit: "couple",
-      buttonLabel: "Book Now",
-      partnerLogo: "/images/trips/partner-logo.png",
-      partnerText: "Sponsored by EuroTrips",
-    },
-  ];
-
   return (
     <>
       <Head>
         <title>NJOY Holiday&apos;s</title>
       </Head>
 
-      <main className="min-h-[80vh] text-white font-sans relative overflow-hidden">
-        {/* NavBar section */}
-        <div className="relative z-30">
-          <NavBar />
-        </div>
-        {/* Hero Section */}
-        <section className="relative z-0">
-          <WelcomePage />
-        </section>
+      {/* Navbar */}
+      <NavBar />
+
+      {/* Hero Section */}
+      <main className="relative z-0">
+        <WelcomePage />
       </main>
-      {/* Trip Cards Section */}
-      <section className="relative px-6">
-        <h2 className="text-4xl font-bold mb-12 text-center">
-          Explore Our Top Packages
-        </h2>
-        <div className="flex flex-wrap justify-center gap-10">
-          {/* Ideally you map multiple trips here */}
-          {mockTrips.map((trip, index) => (
-            <TripCard key={index} trip={trip} />
-          ))}
-        </div>
-      </section>
 
-      {/* Matchmaker Section */}
-      <section className="relative z-0 mt-28">
-        <MatchmakerSection />
-      </section>
+      {/* Sections Wrapper */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <Exploer />
 
-      {/* Luxury Destinations Section */}
-      <section className="relative z-0 mt-28">
-        <LuxuryDestinations />
-      </section>
+        <Services />
 
-      {/* Offers Section */}
-      <section className="relative z-0 mt-28">
-        <OffresPage />
-      </section>
+        <PopularDestinations />
 
-      {/* Testimonials Section */}
-      <section className="relative z-0 mt-28">
-        <TestimonialSection />
-      </section>
+        <HotelBooking />
+
+        <FlightBooking />
+
+        <Visa />
+
+        <CustomerReviews />
+
+        <WhyChooseUs />
+
+        <ContactCTA />
+      </div>
 
       {/* Footer */}
-      <section className="relative z-0 mt-28">
-        <Footer />
-      </section>
+      <Footer />
     </>
   );
 }
