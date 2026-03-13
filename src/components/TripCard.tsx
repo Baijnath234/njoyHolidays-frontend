@@ -1,9 +1,10 @@
 // components/TripCard.js
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { StaticImageData } from "next/image";
 
 interface Trip {
-  image: string;
+  image: string | StaticImageData;
   title: string;
   locationLabel: string;
   duration: string;
