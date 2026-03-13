@@ -2,6 +2,21 @@
 
 import { useState } from "react";
 
+interface Itinerary {
+  legs: {
+    departure: string;
+    arrival: string;
+    carriers: {
+      marketing: {
+        name: string;
+      }[];
+    };
+  }[];
+  price: {
+    formatted: string;
+  };
+}
+
 interface Flight {
   airline: string;
   departure: string;
@@ -38,7 +53,7 @@ export default function FlightSearch() {
 
       // adjust based on API response
       const results =
-        data?.data?.itineraries?.map((item: any) => ({
+       (data?.data?.itineraries as Itinerary[])?.map((item) => ({
           airline: item.legs[0]?.carriers?.marketing[0]?.name,
           departure: item.legs[0]?.departure,
           arrival: item.legs[0]?.arrival,
