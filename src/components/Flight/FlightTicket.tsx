@@ -1,5 +1,6 @@
 import React from "react";
 import FlightSearch from "./FlightSearch";
+import Footer from "../Layout/Footer";
 
 const FlightTicket = () => {
   return (
@@ -25,7 +26,7 @@ const FlightTicket = () => {
             </h1>
 
             <p className="mt-4 text-lg md:text-xl max-w-2xl">
-               Search and compare flights from top airlines. Book the best deals
+              Search and compare flights from top airlines. Book the best deals
               for domestic and international travel.
             </p>
           </div>
@@ -34,6 +35,10 @@ const FlightTicket = () => {
 
       <div className="mx-auto relative top-90 ">
         <FlightSearch />
+      </div>
+
+      <div className="mx-auto relative top-130 ">
+        <Footer />
       </div>
     </div>
   );

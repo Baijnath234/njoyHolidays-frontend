@@ -4,7 +4,7 @@ import Card from "../common/card";
 const Visa = () => {
   return (
     <>
-      <section className="bg-white mt-20">
+      <section className="bg-white mt-30">
          {/* HERO */}
       <main className="from-indigo-700 to-blue-600 text-black">
         <div className="flex items-center justify-center px-6 text-center">

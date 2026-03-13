@@ -4,6 +4,8 @@ import baliImage from "../../../public/asset/images/Bali Adveture.jpg";
 import Vietnam from "../../../public/asset/images/Vietnam.jpg"
 import dubai from "../../../public/asset/images/dubai.jpg"
 import malaysia from "../../../public/asset/images/Malaysia.jpg"
+import colombo from "../../../public/asset/images/colombo.jpg"
+import Paris from "../../../public/asset/images/Paris.jpg"
  
 const Exploer = () => {
 
@@ -49,21 +51,21 @@ const Exploer = () => {
       buttonLabel: "Book Now",
     },
     {
-      image: malaysia,
-      title: "Malaysia Package",
+      image: colombo,
+      title: "sri lanka",
       locationLabel: "Malaysia",
       duration: "3 Days",
-      location: "Langkawi",
+      location: "colombo",
       price: 38999,
       unit: "couple",
       buttonLabel: "Book Now",
     },
     {
-      image: malaysia,
-      title: "Malaysia Package",
-      locationLabel: "Malaysia",
+      image: Paris,
+      title: "France Package",
+      locationLabel: "France",
       duration: "3 Days",
-      location: "Langkawi",
+      location: "Paris",
       price: 38999,
       unit: "couple",
       buttonLabel: "Book Now",

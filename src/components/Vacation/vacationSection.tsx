@@ -46,13 +46,13 @@ const VacationSection = () => {
       <div className="mx-auto relative top-130 ">
         <SummarVacation />
       </div>
-      <div className="mx-auto relative top-90 ">
+      <div className="mx-auto relative top-130 ">
         <WinterVacation />
       </div>
-      <div className="mx-auto relative top-90 ">
+      <div className="mx-auto relative top-130 ">
         <VacationCategories />
       </div>
-      <div className="mx-auto relative top-90 ">
+      <div className="mx-auto relative top-130 ">
         <Footer />
       </div>
     </div>
