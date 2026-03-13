@@ -47,15 +47,9 @@ export default function TripCard({ trip }: { trip: Trip }) {
             / {trip?.unit}
           </span>
         </div>
-        <button className="bg-[#0dbeff]/100 text-white px-4 py-2 text-sm rounded-md hover:bg-[#faca2d] transition">
+        <button className="bg-[#0dbeff] text-white px-4 py-2 text-sm rounded-md shadow-[0_6px_0_#0a8bb3] hover:translate-y-[2px] hover:shadow-[0_4px_0_#0a8bb3] active:translate-y-[6px] active:shadow-none transition-all duration-150">
           {trip.buttonLabel}
         </button>
-        {/* {trip.partnerLogo && (
-          <div className="mt-3 flex items-center gap-2 text-sm text-gray-500 bg-[#1e1e1f]/100">
-            <Image src={trip.partnerLogo} width={50} height={50} alt="Partner" />
-            {trip.partnerText}
-          </div>
-        )} */}
       </div>
     </div>
   );

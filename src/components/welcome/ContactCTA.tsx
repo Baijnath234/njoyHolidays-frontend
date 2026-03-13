@@ -15,7 +15,7 @@ export default function ContactCTA() {
         <div className="flex flex-col md:flex-row justify-center gap-4">
           <a
             href="tel:+919334222448"
-            className="bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold"
+            className="bg-white text-black px-6 py-3 rounded-lg font-semibold"
           >
             📞 Call Us
           </a>
@@ -27,7 +27,7 @@ export default function ContactCTA() {
           </a>
           <a
             href="https://Wa.me/+919334222448"
-            className="flex justify-center bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold gap-2"
+            className="flex justify-center bg-white text-black px-6 py-3 rounded-lg font-semibold gap-2"
           >
             <FaWhatsapp size={20} color="green" />
             WhatsApp

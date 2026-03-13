@@ -1,5 +1,6 @@
 import React from "react";
 import HotelSearch from "./HotelSearch";
+import Footer from "../Layout/Footer";
 
 const Hotel = () => {
   return (
@@ -35,6 +36,9 @@ const Hotel = () => {
       <section>
         <HotelSearch />
       </section>
+      <div className="mx-auto relative top-130 ">
+        <Footer />
+      </div>
     </div>
   );
 };

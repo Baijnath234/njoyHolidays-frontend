@@ -3,193 +3,19 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 import Link from "next/link";
-import { FaUserCircle } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaHome,
+  FaHotel,
+  FaInstagram,
+  FaUserCircle,
+} from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { IoPricetagsOutline } from "react-icons/io5";
-import AndhraPradesh from "../../../public/asset/images/AndhraPradesh.jpg";
-import ArunachalPradesh from "../../../public/asset/images/Arunachal Pradesh.jpg";
-import Assam from "../../../public/asset/images/Assam.jpg";
-import Bihar from "../../../public/asset/images/Bihar.jpg";
-import Chhattisgarh from "../../../public/asset/images/Chhattisgarh.jpg";
-import Goa from "../../../public/asset/images/Goa.jpg";
-import Gujarat from "../../../public/asset/images/Gujarat.jpg";
-import HimachalPradesh from "../../../public/asset/images/Himachal Pradesh.jpg";
-import Jharkhand from "../../../public/asset/images/Jharkhand.jpg";
-import Karnataka from "../../../public/asset/images/Karnataka.jpg";
-import Kerala from "../../../public/asset/images/Kerala.jpg";
-import MadhyaPradesh from "../../../public/asset/images/Madhya Pradesh.jpg";
-import Maharashtra from "../../../public/asset/images/Maharashtra.jpg";
-import Manipur from "../../../public/asset/images/Manipur.jpg";
-import Meghalaya from "../../../public/asset/images/Meghalaya.jpg";
-import Mizoram from "../../../public/asset/images/Mizoram.jpg";
-import Nagaland from "../../../public/asset/images/Nagaland.jpg";
-import Odisha from "../../../public/asset/images/Odisha.jpg";
-import Punjab from "../../../public/asset/images/Punjab.jpg";
-import Rajasthan from "../../../public/asset/images/Rajasthan.jpg";
-import Sikkim from "../../../public/asset/images/Sikkim.jpg";
-import TamilNadu from "../../../public/asset/images/TamilNadu.jpg";
-import Telangana from "../../../public/asset/images/Telangana.jpg";
-import Tripura from "../../../public/asset/images/Tripura.jpg";
-import UttarPradesh from "../../../public/asset/images/UttarPradesh.jpg";
-import Uttarakhand from "../../../public/asset/images/Uttarakhand.jpg";
-import Andaman from "../../../public/asset/images/Andaman.jpg";
-import Chandigarh from "../../../public/asset/images/Chandigarh.jpg";
-import Dadra from "../../../public/asset/images/Dadra.jpg";
-import Delhi from "../../../public/asset/images/Delhi.jpg";
-import JammuKashmir from "../../../public/asset/images/JammuKashmir.jpg";
-import Ladakh from "../../../public/asset/images/Ladakh.jpg";
-import Lakshadweep from "../../../public/asset/images/Lakshadweep.jpg";
-import Puducherry from "../../../public/asset/images/Puducherry.jpg";
-import WestBengal from "../../../public/asset/images/WestBengal.jpg";
+import { IoCallSharp, IoPricetagsOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-
-type Country = [];
-
-const states = [
-  {
-    Title: "Andhra Pradesh",
-    Image: AndhraPradesh,
-  },
-  {
-    Title: "Arunachal Pradesh",
-    Image: ArunachalPradesh,
-  },
-  {
-    Title: "Assam",
-    Image: Assam,
-  },
-  {
-    Title: "Bihar",
-    Image: Bihar,
-  },
-  {
-    Title: "Chhattisgarh",
-    Image: Chhattisgarh,
-  },
-  {
-    Title: "Goa",
-    Image: Goa,
-  },
-  {
-    Title: "Gujarat",
-    Image: Gujarat,
-  },
-  {
-    Title: "Himachal Pradesh",
-    Image: HimachalPradesh,
-  },
-  {
-    Title: "Jharkhand",
-    Image: Jharkhand,
-  },
-  {
-    Title: "Karnataka",
-    Image: Karnataka,
-  },
-  {
-    Title: "Kerala",
-    Image: Kerala,
-  },
-  {
-    Title: "Madhya Pradesh",
-    Image: MadhyaPradesh,
-  },
-  {
-    Title: "Maharashtra",
-    Image: Maharashtra,
-  },
-  {
-    Title: "Manipur",
-    Image: Manipur,
-  },
-  {
-    Title: "Meghalaya",
-    Image: Meghalaya,
-  },
-  {
-    Title: "Mizoram",
-    Image: Mizoram,
-  },
-  {
-    Title: "Nagaland",
-    Image: Nagaland,
-  },
-  {
-    Title: "Odisha",
-    Image: Odisha,
-  },
-  {
-    Title: "Punjab",
-    Image: Punjab,
-  },
-  {
-    Title: "Rajasthan",
-    Image: Rajasthan,
-  },
-  {
-    Title: "Sikkim",
-    Image: Sikkim,
-  },
-  {
-    Title: "Tamil Nadu",
-    Image: TamilNadu,
-  },
-  {
-    Title: "Telangana",
-    Image: Telangana,
-  },
-  {
-    Title: "Tripura",
-    Image: Tripura,
-  },
-  {
-    Title: "Uttar Pradesh",
-    Image: UttarPradesh,
-  },
-  {
-    Title: "Uttarakhand",
-    Image: Uttarakhand,
-  },
-  {
-    Title: "West Bengal",
-    Image: WestBengal,
-  },
-];
-
-const territories = [
-  {
-    Title: "Andaman and Nicobar Islands",
-    Image: Andaman,
-  },
-  {
-    Title: "Chandigarh",
-    Image: Chandigarh,
-  },
-  {
-    Title: "Dadra and Nagar Haveli and Daman & Diu",
-    Image: Dadra,
-  },
-  {
-    Title: "Delhi (NCT)",
-    Image: Delhi,
-  },
-  {
-    Title: "Jammu & Kashmir",
-    Image: JammuKashmir,
-  },
-  {
-    Title: "Ladakh",
-    Image: Ladakh,
-  },
-  {
-    Title: "Lakshadweep",
-    Image: Lakshadweep,
-  },
-  {
-    Title: "Puducherry",
-    Image: Puducherry,
-  },
-];
+import { GiPalmTree } from "react-icons/gi";
+import { MdFlight, MdMiscellaneousServices, MdPublic } from "react-icons/md";
+import { FaXTwitter } from "react-icons/fa6";
 
 const services = [
   {
@@ -230,71 +56,11 @@ export default function NavBar() {
   const toggleProfileModal = () => setShowProfileModal((prev) => !prev);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [countries, setCountries] = useState<Country[]>([]);
+  console.log({ isModalOpen });
 
- useEffect(() => {
-  fetch(
-    "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/states.json"
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const indiaStates = data.filter((s) => s.country_code === "IN");
-      console.log(indiaStates);
-    });
-}, []);
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      const res = await fetch(
-        "https://restcountries.com/v3.1/all?fields=name,region,flags",
-      );
-
-      const data = await res.json();
-
-      const formatted: Country[] = data.map((c: any, index: number) => ({
-        id: index,
-        Title: c.name.common,
-        Continent: c.region,
-        Image: c.flags.png,
-      }));
-
-      setCountries(formatted);
-    };
-
-    fetchCountries();
-  }, []);
-
-  const AsiaData = countries.filter((c) => c.Continent === "Asia");
-  const AfricaData = countries.filter((c) => c.Continent === "Africa");
-  const EuropeData = countries.filter((c) => c.Continent === "Europe");
-  const NorthAmericaData = countries.filter((c) => c.Continent === "Americas");
-  const SouthAmericaData = countries.filter((c) => c.Continent === "Americas");
-  const AntarcticaData = countries.filter((c) => c.Continent === "Antarctic");
-  const AustraliaData = countries.filter((c) => c.Continent === "Oceania");
-
-  const [activeTab, setActiveTab] = useState<
-    | "states"
-    | "Asia"
-    | "Africa"
-    | "NorthAmerica"
-    | "SouthAmerica"
-    | "Antarctica"
-    | "Europe"
-    | "Australia"
-    | "territories"
-    | "service"
-  >("states");
+  const [activeTab, setActiveTab] = useState<"service">("service");
 
   const dataMap = {
-    states,
-    territories,
-    Asia: AsiaData,
-    Africa: AfricaData,
-    NorthAmerica: EuropeData,
-    SouthAmerica: NorthAmericaData,
-    Antarctica: SouthAmericaData,
-    Europe: AntarcticaData,
-    Australia: AustraliaData,
     service: services,
   };
 
@@ -303,17 +69,13 @@ export default function NavBar() {
   const router = useRouter();
 
   const openMenuModal = (menu: string, href: string) => {
-    const modalMenus = ["Domestic", "International", "Services"];
+    const modalMenus = ["Services"];
 
     if (modalMenus.includes(menu)) {
       setActiveMenu(menu);
       setIsModalOpen(true);
 
-      if (menu === "Domestic") {
-        setActiveTab("states");
-      } else if (menu === "International") {
-        setActiveTab("Asia");
-      } else if (menu === "Services") {
+      if (menu === "Services") {
         setActiveTab("service");
       }
     } else {
@@ -335,16 +97,50 @@ export default function NavBar() {
     };
   }, []);
 
+  const navLinkss = [
+    {
+      label: "Home",
+      icon: <FaHome className="text-[#0dbeff]" size={28} />,
+      href: "/",
+    },
+    {
+      label: "Domestic",
+      icon: <GiPalmTree className="text-[#0dbeff]" size={28} />,
+      href: "/domestic",
+    },
+    {
+      label: "International",
+      icon: <MdPublic className="text-[#0dbeff]" size={28} />,
+      href: "/international",
+    },
+    {
+      label: "Flight",
+      icon: <MdFlight className="text-[#0dbeff]" size={28} />,
+      href: "/flight",
+    },
+    {
+      label: "Hotels",
+      icon: <FaHotel className="text-[#0dbeff]" size={28} />,
+      href: "/hotels",
+    },
+    {
+      label: "Services",
+      icon: <MdMiscellaneousServices className="text-[#0dbeff]" size={28} />,
+      href: "/services",
+    },
+  ];
+
   const navLinks = [
+    "Home",
     "Domestic",
     "International",
-    "Vacations",
     "Flight",
     "Hotels",
     "Services",
   ].map((label) => ({
     label,
-    href: "/" + label.toLowerCase().replace(/\s+/g, "-"),
+    href:
+      label === "Home" ? "/" : "/" + label.toLowerCase().replace(/\s+/g, "-"),
   }));
 
   return (
@@ -387,27 +183,29 @@ export default function NavBar() {
       <div className="hidden md:flex items-center space-x-4 text-sm relative z-40">
         {/* Search icon */}
         <div className="relative flex items-center justify-center">
-          <button
+          <Link
+            href=""
             // onClick={''}
             className="text-xl focus:outline-none"
           >
             <FiSearch className="text-black" size={28} />
-          </button>
+          </Link>
         </div>
         <div className="relative flex items-center justifuy-center">
-          <button className="text-xl focus:outline-none">
+          <Link href="" className="text-xl focus:outline-none">
             <IoPricetagsOutline className="text-black" size={28} />
-          </button>
+          </Link>
         </div>
 
         {/* Profile Icon + Modal Wrapper */}
         <div className="relative flex items-center justify-center">
-          <button
+          <Link
+            href=""
             onClick={toggleProfileModal}
             className="text-xl focus:outline-none"
           >
             <FaUserCircle className="text-black" size={28} />
-          </button>
+          </Link>
 
           {/* Profile Modal */}
           {showProfileModal && (
@@ -450,19 +248,44 @@ export default function NavBar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white text-black px-6 py-4 space-y-2 shadow-lg z-0">
-          {navLinks.map((link) => (
-            <a
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white text-black px-6 py-6 space-y-6 shadow-lg z-0">
+          {navLinkss.map((link) => (
+            <div
               key={link.label}
-              href={link.href}
-              className="block hover:underline"
+              onClick={() => {
+                openMenuModal(link.label, link.href);
+                setMenuOpen(false);
+              }}
+              className="flex items-center gap-4 text-xl font-semibold p-3 rounded-lg hover:bg-gray-100 cursor-pointer transition"
             >
+              <span className="text-2xl text-blue-500">{link.icon}</span>
               {link.label}
-            </a>
+            </div>
           ))}
-          <a href="tel:+919334222448" className="block mt-2 font-medium">
-            📞 +91 9334222448
-          </a>
+
+          <div className="flex md:flex-row justify-center gap-10 mt-10">
+            <a href="tel:+919334222448" className="hover:text-white">
+              <IoCallSharp className="text-[#067506]" size={30} />
+            </a>
+            <a
+              href="https://www.facebook.com/Njoy-Holidayz-Tours-and-Visa-Services-106747764361698/"
+              className="hover:text-white"
+            >
+              <FaFacebookF className="text-[#0d5cdb]" size={30} />
+            </a>
+            <a
+              href="https://mobile.twitter.com/njoy_holidayz"
+              className="hover:text-white"
+            >
+              <FaXTwitter className="text-black" size={30} />
+            </a>
+            <a
+              href="https://www.instagram.com/njoy_holidayz?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D"
+              className="hover:text-white"
+            >
+              <FaInstagram className="text-[#bd1a1a]" size={30} />
+            </a>
+          </div>
         </div>
       )}
 
@@ -483,109 +306,6 @@ export default function NavBar() {
 
             {/* Tabs */}
             <div className="flex gap-4 mb-6">
-              {activeMenu === "Domestic" && (
-                <>
-                  <button
-                    onClick={() => setActiveTab("states")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "states"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    States
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("territories")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "territories"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Territories
-                  </button>
-                </>
-              )}
-
-              {activeMenu === "International" && (
-                <>
-                  {}
-                  <button
-                    onClick={() => setActiveTab("Asia")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "Asia"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Asia
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("Africa")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "Africa"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Africa
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("NorthAmerica")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "NorthAmerica"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    North America
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("SouthAmerica")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "SouthAmerica"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    South America
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("Antarctica")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "Antarctica"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Antarctica
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("Europe")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "Europe"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Europe
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("Australia")}
-                    className={`px-4 py-2 rounded-full ${
-                      activeTab === "Australia"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    }`}
-                  >
-                    Australia
-                  </button>
-                </>
-              )}
-
               {activeMenu === "Services" && (
                 <button
                   onClick={() => setActiveTab("service")}

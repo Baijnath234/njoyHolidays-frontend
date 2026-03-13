@@ -12,7 +12,8 @@ interface Flight {
 export default function FlightSearch() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [date, setDate] = useState("");
+  const [departureDate, setDdepartureDate] = useState("");
+  const [arrivalDate, setArrivalDate] = useState("")
   const [flights, setFlights] = useState<Flight[]>([]);
   console.log({flights});
   
@@ -23,7 +24,7 @@ export default function FlightSearch() {
 
     try {
       const res = await fetch(
-        "https://sky-scrapper.p.rapidapi.com/api/v2/flights/searchFlightsComplete?originSkyId=LOND&destinationSkyId=NYCA&originEntityId=27544008&destinationEntityId=27537542&date=2026-03-11&returnDate=2026-03-14&cabinClass=economy&adults=1&sortBy=best&currency=USD&market=en-US&countryCode=US",
+        `https://sky-scrapper.p.rapidapi.com/api/v2/flights/searchFlightsComplete?originSkyId=${from}&destinationSkyId=${to}&originEntityId=27544008&destinationEntityId=27537542&date=${departureDate}&returnDate=${arrivalDate}&cabinClass=economy&adults=1&sortBy=best&currency=USD&market=en-US&countryCode=US`,
         {
           method: "GET",
           headers: {
@@ -44,6 +45,8 @@ export default function FlightSearch() {
           price: item.price?.formatted,
         })) || [];
 
+        console.log({results});
+        
       setFlights(results);
     } catch (error) {
       console.error("Flight API Error:", error);
@@ -76,13 +79,13 @@ export default function FlightSearch() {
           <input
             type="date"
             className="border p-3 rounded-lg"
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => setDdepartureDate(e.target.value)}
           />
           
           <input
             type="date"
             className="border p-3 rounded-lg"
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => setArrivalDate(e.target.value)}
           />
 
           <button
