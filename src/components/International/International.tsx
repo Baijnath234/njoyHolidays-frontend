@@ -4,9 +4,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-type Country = [];
+type Country = {
+  id: number;
+  Title: string;
+  Continent: string;
+  Image: string;
+};
 
-const Domestic = () => {
+const International = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [activeTab, setActiveTab] = useState<
     | "Asia"
@@ -26,12 +31,21 @@ const Domestic = () => {
 
       const data = await res.json();
 
-      const formatted: Country[] = data.map((c: any, index: number) => ({
-        id: index,
-        Title: c.name.common,
-        Continent: c.region,
-        Image: c.flags.png,
-      }));
+      const formatted: Country[] = data.map(
+        (
+          c: {
+            name: { common: string };
+            region: string;
+            flags: { png: string };
+          },
+          index: number,
+        ) => ({
+          id: index,
+          Title: c.name.common,
+          Continent: c.region,
+          Image: c.flags.png,
+        }),
+      );
 
       setCountries(formatted);
     };
@@ -86,7 +100,7 @@ const Domestic = () => {
         {tabs.map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab as any)}
+            onClick={() => setActiveTab(tab as keyof typeof dataMap)}
             className={`px-6 py-2 rounded-full transition ${
               activeTab === tab
                 ? "bg-blue-500 text-white"
@@ -100,7 +114,7 @@ const Domestic = () => {
 
       {/* Card Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {data?.map((item: any, index) => (
+        {data?.map((item: Country, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
@@ -128,4 +142,4 @@ const Domestic = () => {
   );
 };
 
-export default Domestic;
+export default International;

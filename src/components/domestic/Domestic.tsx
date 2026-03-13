@@ -36,8 +36,14 @@ import Ladakh from "../../../public/asset/images/Ladakh.jpg";
 import Lakshadweep from "../../../public/asset/images/Lakshadweep.jpg";
 import Puducherry from "../../../public/asset/images/Puducherry.jpg";
 import WestBengal from "../../../public/asset/images/WestBengal.jpg";
+import type { StaticImageData } from "next/image";
 
-const states = [
+type Destination = {
+  Title: string;
+  Image: StaticImageData;
+};
+
+const states: Destination[] = [
   {
     Title: "Andhra Pradesh",
     Image: AndhraPradesh,
@@ -148,7 +154,7 @@ const states = [
   },
 ];
 
-const territories = [
+const territories: Destination[] = [
   {
     Title: "Andaman and Nicobar Islands",
     Image: Andaman,
@@ -211,7 +217,7 @@ const Domestic = () => {
         {["states", "territories"].map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab as any)}
+            onClick={() => setActiveTab(tab as "states" | "territories")}
             className={`px-6 py-2 rounded-full transition ${
               activeTab === tab
                 ? "bg-blue-500 text-white"
@@ -225,7 +231,7 @@ const Domestic = () => {
 
       {/* Card Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {data?.map((item: any, index) => (
+        {data?.map((item: Destination, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
