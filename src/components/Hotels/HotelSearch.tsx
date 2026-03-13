@@ -1,20 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-
-
-// interface Hotels {
-//   hotels: string;
-//   checkIn: string;
-//   checkOut: string;
-//   rooms: string;
-//   price: string;
-// }
+import React from "react";
 
 const HotelSearch = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [date, setDate] = useState("");
 
   return (
     <div>
@@ -25,28 +13,28 @@ const HotelSearch = () => {
               type="text"
               placeholder="CITY, AREA or PROPERTY"
               className="border p-3 rounded-lg"
-              onChange={(e) => setFrom(e.target.value)}
+              onChange={(e) => e.target.value}
             />
 
             <input
               type="date"
               placeholder="Check-In"
               className="border p-3 rounded-lg"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => e.target.value}
             />
 
             <input
               type="date"
               placeholder="Check-Out"
               className="border p-3 rounded-lg"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => e.target.value}
             />
 
             <input
               type="text"
               placeholder="Rooms & Guests"
               className="border p-3 rounded-lg"
-              onChange={(e) => setTo(e.target.value)}
+              onChange={(e) => e.target.value}
             />
 
             <button
