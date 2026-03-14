@@ -1,5 +1,4 @@
 import React from "react";
-import TripCard from "../TripCard";
 import baliImage from "../../../public/asset/images/Bali Adveture.jpg";
 import Vietnam from "../../../public/asset/images/Vietnam.jpg";
 import dubai from "../../../public/asset/images/dubai.jpg";
@@ -7,7 +6,7 @@ import malaysia from "../../../public/asset/images/Malaysia.jpg";
 import colombo from "../../../public/asset/images/colombo.jpg";
 import Paris from "../../../public/asset/images/Paris.jpg";
 import { StaticImageData } from "next/image";
-import Link from "next/link";
+import TripCard from "../TripCard";
 
 export type Trip = {
   slug: string;
@@ -83,34 +82,44 @@ export const mockTrips: Trip[] = [
   },
 ];
 
-const Exploer = () => {
+const packages = () => {
   return (
-    <div>
-      <h2 className="text-4xl md:text-5xl font-bold mb-20 text-center">
-        Explore Our Top Packages
-      </h2>
-      <div className="flex flex-wrap justify-center gap-10">
+    <>
+      {/* Hero Section */}
+      <section>
+        <div className="absolute w-full h-[50vh] overflow-hidden top-20">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05')",
+            }}
+          />
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+            <h1 className="text-3xl md:text-5xl font-bold">Explore Packages</h1>
+
+            <p className="mt-4 text-lg md:text-xl max-w-2xl">
+              Search and compare flights from top airlines. Book the best deals
+              for domestic and international travel.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="flex flex-wrap justify-center gap-10 mt-150">
         {/* Ideally you map multiple trips here */}
         {mockTrips.map((trip, index) => (
           <TripCard key={index} trip={trip} />
         ))}
       </div>
-
-      <div className="flex justify-center mt-14">
-        <Link href="/packages">
-          <button
-            className="bg-[#0dbeff] text-white px-8 py-3 rounded-lg font-semibold
-        shadow-[0_6px_0_#0a8bb3]
-        hover:translate-y-[2px] hover:shadow-[0_4px_0_#0a8bb3]
-        active:translate-y-[6px] active:shadow-none
-        transition-all duration-150"
-          >
-            View More Packages
-          </button>
-        </Link>
-      </div>
-    </div>
+      <section></section>
+    </>
   );
 };
 
-export default Exploer;
+export default packages;

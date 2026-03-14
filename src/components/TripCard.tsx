@@ -1,11 +1,12 @@
-// components/TripCard.js
+"use client"
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { StaticImageData } from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Trip {
   image: string | StaticImageData;
-  title: string;
+  slug: string;
   locationLabel: string;
   duration: string;
   location: string;
@@ -17,13 +18,14 @@ interface Trip {
 }
 
 export default function TripCard({ trip }: { trip: Trip }) {
-  
+  const router = useRouter();
+
   return (
     <div className="w-[340px] bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="relative h-52">
         <Image
           src={trip.image}
-          alt={trip.title}
+          alt={trip.slug}
           fill
           className="object-cover"
         />
@@ -36,7 +38,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-lg leading-snug mb-2">
-          {trip.title}
+          {trip.slug}
         </h3>
         <div className="flex items-center text-sm text-gray-600 mb-1">
           <MapPin size={14} className="mr-1" />
@@ -48,7 +50,10 @@ export default function TripCard({ trip }: { trip: Trip }) {
             / {trip?.unit}
           </span>
         </div>
-        <button className="bg-[#0dbeff] text-white px-4 py-2 text-sm rounded-md shadow-[0_6px_0_#0a8bb3] hover:translate-y-[2px] hover:shadow-[0_4px_0_#0a8bb3] active:translate-y-[6px] active:shadow-none transition-all duration-150">
+        <button
+          onClick={() => router.push(`/product/${trip.slug}`)}
+          className="bg-[#0dbeff] text-white px-4 py-2 text-sm rounded-md shadow-[0_6px_0_#0a8bb3] hover:translate-y-[2px] hover:shadow-[0_4px_0_#0a8bb3] active:translate-y-[6px] active:shadow-none transition-all duration-150"
+        >
           {trip.buttonLabel}
         </button>
       </div>
