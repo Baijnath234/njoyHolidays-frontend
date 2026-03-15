@@ -1,26 +1,20 @@
-import NavBar from "@/components/Layout/nabar";
+import { mockTrips } from "@/components/welcome/Explore";
 import ProductDetails from "@/components/ProductDetails/productDetails";
-import { mockTrips, Trip } from "@/components/welcome/Explore";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
 
-  const trip: Trip | undefined = mockTrips.find(
-    (t) => t.slug === params.slug
-  );
+  const { slug } = await params;
+
+  const trip = mockTrips.find((t) => t.slug === slug);
 
   if (!trip) return notFound();
 
-  return (
-    <div>
-      <NavBar />
-      <ProductDetails trip={trip} />
-    </div>
-  );
+  return <ProductDetails trip={trip} />;
 }
