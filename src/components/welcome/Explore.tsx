@@ -41,8 +41,6 @@ export default function Exploer() {
 
   const overlayStyle = theme === "light" ? "bg-white/30" : "bg-black/40";
 
-  const buttonStyle =
-    theme === "light" ? "bg-blue-500 text-white" : "bg-orange-400 text-white";
 
   const destinations = [
     { name: "Maldives", image: Maldives },
@@ -132,7 +130,7 @@ export default function Exploer() {
 
           <div className="flex justify-center mt-14">
             <Link href="/packages">
-              <button className="bg-orange-400 text-white px-8 py-3 rounded-lg font-semibold">
+              <button className="bg-orange-400 text-white px-8 py-3 rounded-lg font-semibold ">
                 View More Packages →
               </button>
             </Link>

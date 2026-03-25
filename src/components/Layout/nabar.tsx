@@ -15,9 +15,8 @@ export default function NavBar() {
   const [showProfileModal, setShowProfileModal] = useState(false);
 
   // 🔐 AUTH STATES (replace with real auth later)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSignedUp, setIsSignedUp] = useState(false);
-
+  const [isLoggedIn] = useState(false);
+  const [isSignedUp] = useState(false);
   const router = useRouter();
   const { theme } = useTheme();
 
@@ -25,10 +24,15 @@ export default function NavBar() {
   const toggleProfileModal = () => setShowProfileModal((prev) => !prev);
 
   useEffect(() => {
-    window.onscroll = () => {
+    const handleScroll = () => {
       setIsScrolled(window.pageYOffset > 10);
     };
-    return () => (window.onscroll = null);
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const navLinks = [
@@ -44,12 +48,12 @@ export default function NavBar() {
     theme === "light"
       ? "bg-sky-400 text-black"
       : theme === "dark"
-      ? "bg-[#020617] text-white"
-      : theme === "ocean"
-      ? "bg-[#0f172a] text-cyan-300"
-      : theme === "sunset"
-      ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white"
-      : "bg-[#020617] text-white";
+        ? "bg-[#020617] text-white"
+        : theme === "ocean"
+          ? "bg-[#0f172a] text-cyan-300"
+          : theme === "sunset"
+            ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white"
+            : "bg-[#020617] text-white";
 
   return (
     <header

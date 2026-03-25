@@ -8,9 +8,7 @@ export default function ForgotPassword() {
 
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ForgotEmail, setForgotEmail] = useState({
-    Email:""
-  })
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

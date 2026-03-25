@@ -1,16 +1,25 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 type Theme = "light" | "dark" | "ocean" | "sunset";
 
-const ThemeContext = createContext<any>(null);
+type ThemeContextType = {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+};
 
-export const ThemeProvider = ({ children }: any) => {
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+type ThemeProviderProps = {
+  children: ReactNode;
+};
+
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme;
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
     if (savedTheme) setTheme(savedTheme);
   }, []);
 
@@ -26,4 +35,12 @@ export const ThemeProvider = ({ children }: any) => {
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error("useTheme must be used within ThemeProvider");
+  }
+
+  return context;
+};
