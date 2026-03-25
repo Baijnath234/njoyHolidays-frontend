@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 interface TokenType {
   email: string;
@@ -6,8 +6,11 @@ interface TokenType {
   sub: string;
 }
 
+const response = await fetch("/api/login");
+const data = await response.json(); // ✅ now defined
+
 const token = data.access_token;
 
-const decoded: TokenType = jwtDecode(token);
+const decoded = jwtDecode<TokenType>(token);
 
 console.log(decoded.role);
