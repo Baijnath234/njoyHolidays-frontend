@@ -1,16 +1,13 @@
+import { Trip } from "@/data/trips";
 import Image from "next/image";
 
 type Props = {
-  params: {
-    slug: string;
-  };
+  trip: Trip;
 };
 
 export default function ProductDetails({ trip }: Props) {
-
   return (
     <main className="max-w-6xl mx-auto px-6 py-10 mt-30">
-
       {/* HERO */}
       <div className="grid md:grid-cols-2 gap-8">
         <Image
@@ -80,10 +77,7 @@ export default function ProductDetails({ trip }: Props) {
 
         <div className="space-y-6">
           {trip.itinerary.map((day) => (
-            <div
-              key={day.day}
-              className="border p-5 rounded-lg"
-            >
+            <div key={day.day} className="border p-5 rounded-lg">
               <h3 className="font-semibold">
                 Day {day.day}: {day.title}
               </h3>
