@@ -23,7 +23,7 @@ export default function WelcomePage() {
       : "bg-[#0f172a]";
 
   // 🎨 TEXT COLOR
-  const textColor = theme === "light" ? "text-black" : "text-white";
+  // const textColor = theme === "light" ? "text-black" : "text-white";
 
   return (
     <section
