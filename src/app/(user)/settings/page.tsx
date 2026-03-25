@@ -4,7 +4,9 @@ import { useTheme } from "@/app/context/ThemeContext";
 import { useState } from "react";
 import NavBar from "../../../components/Layout/nabar";
 
-const themes = [
+type Theme = "light" | "dark" | "ocean" | "sunset";
+
+const themes: { name: string; value: Theme }[] = [
   { name: "Light", value: "light" },
   { name: "Dark", value: "dark" },
   { name: "Ocean Blue", value: "ocean" },
