@@ -2,7 +2,7 @@
 
 import Footer from "../(user)/components/Layout/Footer";
 import NavBar from "../(user)/components/Layout/nabar";
-import Exploer from "../(user)/components/welcome/Explore";
+import Explore from "../(user)/components/welcome/Explore";
 import FlightBooking from "../(user)/components/welcome/FlightBooking";
 import HotelBooking from "../(user)/components/welcome/HotelBooking";
 import Visa from "../(user)/components/welcome/Visa";
@@ -20,34 +20,23 @@ export default function Home() {
         <title>NJOY Holiday&apos;s</title>
       </Head>
 
-      {/* Navbar */}
       <NavBar />
 
-      {/* Hero Section */}
       <main className="relative z-0">
         <WelcomePage />
       </main>
 
-      {/* Sections Wrapper */}
       <div>
-        <Exploer />
-
+        <Explore />
         <HotelBooking />
-
         <FlightBooking />
-
         <Visa />
-
         <PopularDestinations />
-
         <WhyChooseUs />
-
         <CustomerReviews />
-
         <ContactCTA />
       </div>
 
-      {/* Footer */}
       <Footer />
     </>
   );
