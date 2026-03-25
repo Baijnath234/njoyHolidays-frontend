@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
-import Banner1 from "../../../../../public/asset/images/Dadra.jpg";
+import Banner1 from "../../../public/asset/images/Dadra.jpg";
 import { useTheme } from "@/app/context/ThemeContext";
 
 export default function WelcomePage() {

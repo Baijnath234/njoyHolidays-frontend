@@ -1,6 +1,6 @@
-import NavBar from '@/app/(user)/components/Layout/nabar'
+import NavBar from '@/components/Layout/nabar'
 import React from 'react'
-import VacationSection from '../components/Vacation/vacationSection'
+import VacationSection from '../../../components/Vacation/vacationSection'
 
 const page = () => {
   return (

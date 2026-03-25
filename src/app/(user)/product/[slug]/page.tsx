@@ -1,6 +1,6 @@
 import { mockTrips } from "../../../../data/trips";
-import ProductDetails from "@/app/(user)/components/ProductDetails/productDetails";
-import NavBar from "@/app/(user)/components/Layout/nabar";
+import ProductDetails from "@/components/ProductDetails/productDetails";
+import NavBar from "@/components/Layout/nabar";
 
 export async function generateStaticParams() {
   return mockTrips.map((trip) => ({

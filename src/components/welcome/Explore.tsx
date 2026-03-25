@@ -3,17 +3,16 @@
 import React from "react";
 import TripCard from "../TripCard";
 import Image from "next/image";
-import Maldives from "../../../../../public/asset/images/Maldives.jpg";
-import Dubai3 from "../../../../../public/asset/images/Dubai3.jpg";
-import Bali from "../../../../../public/asset/images/Bali.jpg";
-import Singapore from "../../../../../public/asset/images/Singapore.jpg";
-import Thailand from "../../../../../public/asset/images/Thailand.jpg";
-import Goa from "../../../../../public/asset/images/Goa.jpg";
+import Maldives from "../../../public/asset/images/Maldives.jpg";
+import Dubai3 from "../../../public/asset/images/Dubai3.jpg";
+import Bali from "../../../public/asset/images/Bali.jpg";
+import Singapore from "../../../public/asset/images/Singapore.jpg";
+import Thailand from "../../../public/asset/images/Thailand.jpg";
+import Goa from "../../../public/asset/images/Goa.jpg";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import CountUp from "react-countup";
 import { useTheme } from "@/app/context/ThemeContext";
-import {mockTrips} from "../../../../data/trips"
+import {mockTrips} from "@/data/trips"
 
 export default function Exploer() {
 

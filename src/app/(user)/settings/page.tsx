@@ -2,7 +2,7 @@
 
 import { useTheme } from "@/app/context/ThemeContext";
 import { useState } from "react";
-import NavBar from "../components/Layout/nabar";
+import NavBar from "../../../components/Layout/nabar";
 
 const themes = [
   { name: "Light", value: "light" },

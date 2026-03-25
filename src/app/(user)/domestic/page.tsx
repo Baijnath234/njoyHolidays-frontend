@@ -1,7 +1,7 @@
 "use client";
-import Footer from "@/app/(user)/components/Layout/Footer";
-import NavBar from "@/app/(user)/components/Layout/nabar";
-import Domestic from "@/app/(user)/components/domestic/Domestic";
+import Footer from "@/components/Layout/Footer";
+import NavBar from "@/components/Layout/nabar";
+import Domestic from "@/components/domestic/Domestic";
 
 
 

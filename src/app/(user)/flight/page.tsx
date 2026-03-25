@@ -1,5 +1,5 @@
-import FlightTicket from '@/app/(user)/components/Flight/FlightTicket'
-import NavBar from '@/app/(user)/components/Layout/nabar'
+import FlightTicket from '@/components/Flight/FlightTicket'
+import NavBar from '@/components/Layout/nabar'
 import React from 'react'
 
 const page = () => {

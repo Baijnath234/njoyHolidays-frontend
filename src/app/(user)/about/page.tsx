@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import owner from "../../../../public/asset/images/owner.jpeg";
 import Link from "next/link";
-import NavBar from "../components/Layout/nabar";
+import NavBar from "../../../components/Layout/nabar";
 
 export default function AboutPage() {
   return (

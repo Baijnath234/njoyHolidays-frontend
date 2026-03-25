@@ -4,9 +4,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import HotelCard from "../common/HotelCard";
 
-import RoyalOrchid from "../../../../../public/asset/images/RoyalOrchid.jpg";
-import Atlantis from "../../../../../public/asset/images/Atlantis (1).jpg";
-import HanoiPearl from "../../../../../public/asset/images/Atlantis (2).jpg";
+import RoyalOrchid from "../../../public/asset/images/RoyalOrchid.jpg";
+import Atlantis from "../../../public/asset/images/Atlantis (1).jpg";
+import HanoiPearl from "../../../public/asset/images/Atlantis (2).jpg";
 import { useTheme } from "@/app/context/ThemeContext";
 
 const featuredHotels = [

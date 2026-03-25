@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Images from "../../../../../public/asset/images/NjoyHolidays_logo.png";
+import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";

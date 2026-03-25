@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import NavBar from "../components/Layout/nabar";
+import NavBar from "../../../components/Layout/nabar";
 
 export default function ContactPage() {
   return (

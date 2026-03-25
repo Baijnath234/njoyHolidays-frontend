@@ -8,7 +8,7 @@ import {
   FaTwitter,
   FaWhatsapp,
 } from "react-icons/fa";
-import Images from "../../../../../public/asset/images/NjoyHolidays_logo.png";
+import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 
 export default function Footer() {
   return (

@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { useTheme } from "@/app/context/ThemeContext";
 
-import Maldives from "../../../../../public/asset/images/Maldives.jpg";
-import Dubai3 from "../../../../../public/asset/images/Dubai3.jpg";
-import Singapore from "../../../../../public/asset/images/Singapore.jpg";
-import Thailand from "../../../../../public/asset/images/Thailand.jpg";
-import Goa from "../../../../../public/asset/images/Goa.jpg";
+import Maldives from "../../../public/asset/images/Maldives.jpg";
+import Dubai3 from "../../../public/asset/images/Dubai3.jpg";
+import Singapore from "../../../public/asset/images/Singapore.jpg";
+import Thailand from "../../../public/asset/images/Thailand.jpg";
+import Goa from "../../../public/asset/images/Goa.jpg";
 
 export default function PopularDestinations() {
   const { theme } = useTheme();

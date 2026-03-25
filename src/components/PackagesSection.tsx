@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
 import PackageCard from "./common/packageCards";
-import {PackageData} from '../data/data'
+import {PackageData} from '../app/(user)/data/data'
 
 const packagesData = [
   {
@@ -56,7 +56,7 @@ const packagesData = [
   // Add more slides if you want
 ];
 
-export default function PackagesSectio() {
+export default function PackagesSection() {
   return (
     <>
       <section className="py-16 px-6 bg-gray-50">

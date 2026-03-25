@@ -1,5 +1,5 @@
-import Hotel from '@/app/(user)/components/Hotels/Hotel'
-import NavBar from '@/app/(user)/components/Layout/nabar'
+import Hotel from '@/components/Hotels/Hotel'
+import NavBar from '@/components/Layout/nabar'
 import React from 'react'
 
 const page = () => {
