@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import baliImage from "../../../../../public/asset/images/Bali Adveture.jpg";
-import Vietnam from "../../../../../public/asset/images/Vietnam.jpg";
-import dubai from "../../../../../public/asset/images/dubai.jpg";
-import malaysia from "../../../../../public/asset/images/Malaysia.jpg";
-import colombo from "../../../../../public/asset/images/colombo.jpg";
-import Paris from "../../../../../public/asset/images/Paris.jpg";
+import baliImage from "../../../public/asset/images/Bali Adveture.jpg";
+import Vietnam from "../../../public/asset/images/Vietnam.jpg";
+import dubai from "../../../public/asset/images/dubai.jpg";
+import malaysia from "../../../public/asset/images/Malaysia.jpg";
+import colombo from "../../../public/asset/images/colombo.jpg";
+import Paris from "../../../public/asset/images/Paris.jpg";
 import { StaticImageData } from "next/image";
 import TripCard from "../TripCard";
 import { useTheme } from "@/app/context/ThemeContext";
