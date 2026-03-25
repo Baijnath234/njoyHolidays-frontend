@@ -1,17 +1,17 @@
 "use client";
 
-import Footer from "../(user)/components/Layout/Footer";
-import NavBar from "../(user)/components/Layout/nabar";
-import Explore from "../(user)/components/welcome/Explore";
-import FlightBooking from "../(user)/components/welcome/FlightBooking";
-import HotelBooking from "../(user)/components/welcome/HotelBooking";
-import Visa from "../(user)/components/welcome/Visa";
-import WelcomePage from "../(user)/components/welcome/WelcomePage";
+import Footer from "@/app/(user)/components/Layout/Footer";
+import NavBar from "@/app/(user)/components/Layout/nabar";
+import Explore from "@/app/(user)/components/welcome/Explore";
+import FlightBooking from "@/app/(user)/components/welcome/FlightBooking";
+import HotelBooking from "@/app/(user)/components/welcome/HotelBooking";
+import Visa from "@/app/(user)/components/welcome/Visa";
+import WelcomePage from "@/app/(user)/components/welcome/WelcomePage";
 import Head from "next/head";
-import PopularDestinations from "../(user)/components/welcome/PopularDestinations";
-import CustomerReviews from "../(user)/components/welcome/CustomerReviews";
-import WhyChooseUs from "../(user)/components/welcome/WhyChooseUs";
-import ContactCTA from "../(user)/components/welcome/ContactCTA";
+import PopularDestinations from "@/app/(user)/components/welcome/PopularDestinations";
+import CustomerReviews from "@/app/(user)/components/welcome/CustomerReviews";
+import WhyChooseUs from "@/app/(user)/components/welcome/WhyChooseUs";
+import ContactCTA from "@/app/(user)/components/welcome/ContactCTA";
 
 export default function Home() {
   return (
