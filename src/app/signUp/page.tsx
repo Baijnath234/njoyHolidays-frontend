@@ -63,7 +63,7 @@ export default function AuthForm() {
 
     try {
       if (!isLogin) {
-        const res = await fetch("http://192.168.1.11:8081/api/auth/register", {
+        const res = await fetch("http://192.168.1.3:8081/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -84,7 +84,7 @@ export default function AuthForm() {
         alert("Registration successful");
         setIsLogin(true);
       } else {
-        const res = await fetch("http://192.168.1.11:8081/api/auth/login", {
+        const res = await fetch("http://192.168.1.3:8081/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -94,19 +94,25 @@ export default function AuthForm() {
         });
 
         const data = await res.json();
+        console.log({ data });
 
         if (!res.ok) {
           throw new Error(data.message || "Invalid credentials");
         }
 
-        console.log("Login success:", data);
-
         localStorage.setItem("token", data.accessToken);
-        localStorage.setItem("role", data.role);
+        localStorage.setItem("role", data.user.role);
+
+        const role = data.user?.role;
 
         // ✅ FIXED NAVIGATION
         setTimeout(() => {
-          router.push("/");
+          if (role === "ADMIN") {
+            router.push("/admin");
+          } else {
+            router.push("/");
+          }
+
           router.refresh();
         }, 0);
       }

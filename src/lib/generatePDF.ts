@@ -1,3 +1,4 @@
+import { Trip } from "@/types";
 import jsPDF from "jspdf";
 
 type Room = {
@@ -8,12 +9,7 @@ type Room = {
   rate: number;
 };
 
-type Trip = {
-  destination: string;
-  days: number;
-  nights: number;
-  rooms: Room[];
-};
+
 
 export const generateTripPDF = (trip: Trip) => {
   const doc = new jsPDF();
