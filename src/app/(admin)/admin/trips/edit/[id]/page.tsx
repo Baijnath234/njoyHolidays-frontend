@@ -1,12 +1,22 @@
 import React from 'react'
+import { mockTrips } from '@/data/trips'
 
 export async function generateStaticParams() {
-  return [];
+  return mockTrips.map((trip) => ({
+    id: trip.slug,
+  }));
 }
 
-const page = () => {
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+const page = async ({ params }: Props) => {
+  const { id } = await params;
   return (
-    <div>page</div>
+    <div>Edit page for {id}</div>
   )
 }
 
