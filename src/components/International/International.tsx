@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 type Country = {
@@ -22,55 +22,58 @@ const International = () => {
     | "Europe"
     | "Australia"
   >("Asia");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const res = await fetch(
-        "https://restcountries.com/v3.1/all?fields=name,region,flags",
-      );
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          "https://restcountries.com/v3.1/all?fields=name,region,flags",
+        );
 
-      const data = await res.json();
+        const data = await res.json();
 
-      const formatted: Country[] = data.map(
-        (
-          c: {
-            name: { common: string };
-            region: string;
-            flags: { png: string };
-          },
-          index: number,
-        ) => ({
-          id: index,
-          Title: c.name.common,
-          Continent: c.region,
-          Image: c.flags.png,
-        }),
-      );
+        const formatted: Country[] = data.map(
+          (
+            c: {
+              name: { common: string };
+              region: string;
+              flags: { png: string };
+            },
+            index: number,
+          ) => ({
+            id: index,
+            Title: c.name.common,
+            Continent: c.region,
+            Image: c.flags.png,
+          }),
+        );
 
-      setCountries(formatted);
+        setCountries(formatted);
+      } catch (error) {
+        console.error("Failed to load countries:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchCountries();
   }, []);
 
-  const AsiaData = countries.filter((c) => c.Continent === "Asia");
-  const EuropeData = countries.filter((c) => c.Continent === "Europe");
-  const AfricaData = countries.filter((c) => c.Continent === "Africa");
-  const NorthAmericaData = countries.filter((c) => c.Continent === "Americas");
-  const SouthAmericaData = countries.filter((c) => c.Continent === "Americas");
-  const AntarcticaData = countries.filter((c) => c.Continent === "Antarctic");
-  const AustraliaData = countries.filter((c) => c.Continent === "Oceania");
+  const dataMap = useMemo(
+    () => ({
+      Asia: countries.filter((c) => c.Continent === "Asia"),
+      Africa: countries.filter((c) => c.Continent === "Africa"),
+      Europe: countries.filter((c) => c.Continent === "Europe"),
+      NorthAmerica: countries.filter((c) => c.Continent === "Americas"),
+      SouthAmerica: countries.filter((c) => c.Continent === "Americas"),
+      Antarctica: countries.filter((c) => c.Continent === "Antarctic"),
+      Australia: countries.filter((c) => c.Continent === "Oceania"),
+    }),
+    [countries],
+  );
 
-  const dataMap = {
-    Asia: AsiaData,
-    Africa: AfricaData,
-    NorthAmerica: EuropeData,
-    SouthAmerica: NorthAmericaData,
-    Antarctica: SouthAmericaData,
-    Europe: AntarcticaData,
-    Australia: AustraliaData,
-    // service: services,
-  };
   const data = dataMap[activeTab];
 
   const tabs = [
@@ -113,31 +116,32 @@ const International = () => {
       </div>
 
       {/* Card Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {data?.map((item: Country, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
-          >
-            <div className="relative w-full h-40 overflow-hidden">
-              <Image
-                src={item.Image}
-                alt={item.Title}
-                fill
-                className="object-cover transition-transform duration-500 hover:scale-110"
-              />
-            </div>
+      {isLoading ? (
+        <div className="text-center py-16 text-gray-500">Loading countries...</div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {data?.map((item: Country, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-105"
+            >
+              <div className="relative w-full h-40 overflow-hidden">
+                <Image
+                  src={item.Image}
+                  alt={item.Title}
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
 
-            <div className="p-3 font-semibold text-sm text-center">
-              {item.Title}
+              <div className="p-3 font-semibold text-sm text-center">
+                {item.Title}
+              </div>
             </div>
-          </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

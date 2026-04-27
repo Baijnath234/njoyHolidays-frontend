@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import SummarVacation from "../Vacation/SummarVacation";
+import SummarVacation from "./SummarVacation";
 import WinterVacation from "./WinterVacation";
 import VacationCategories from "./VacationCateogies";
 import Footer from "../Layout/Footer";

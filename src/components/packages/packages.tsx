@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import baliImage from "../../../public/asset/images/Bali Adveture.jpg";
 import Vietnam from "../../../public/asset/images/Vietnam.jpg";
@@ -7,6 +9,7 @@ import colombo from "../../../public/asset/images/colombo.jpg";
 import Paris from "../../../public/asset/images/Paris.jpg";
 import { StaticImageData } from "next/image";
 import TripCard from "../TripCard";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export type Trip = {
   slug: string;
@@ -82,13 +85,25 @@ export const mockTrips: Trip[] = [
   },
 ];
 
-const packages = () => {
+const Packages = () => {
+  const { theme } = useTheme();
+
+  // 🎨 THEME UI
+  const textColor =
+    theme === "light" ? "text-black" : "text-white";
+
+  const overlayStyle =
+    theme === "light"
+      ? "bg-white/40"
+      : "bg-black/40";
+
   return (
     <>
       {/* Hero Section */}
       <section>
         <div className="absolute w-full h-[50vh] overflow-hidden top-20">
-          {/* Background Image */}
+
+          {/* Background */}
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -98,11 +113,15 @@ const packages = () => {
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className={`absolute inset-0 ${overlayStyle}`} />
 
           {/* Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-            <h1 className="text-3xl md:text-5xl font-bold">Explore Packages</h1>
+          <div
+            className={`relative z-10 flex flex-col items-center justify-center h-full text-center px-4 ${textColor}`}
+          >
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Explore Packages
+            </h1>
 
             <p className="mt-4 text-lg md:text-xl max-w-2xl">
               Search and compare flights from top airlines. Book the best deals
@@ -111,15 +130,17 @@ const packages = () => {
           </div>
         </div>
       </section>
-      <div className="flex flex-wrap justify-center gap-10 mt-150">
-        {/* Ideally you map multiple trips here */}
+
+      {/* Packages */}
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-10 mt-150 mb-20">
         {mockTrips.map((trip, index) => (
           <TripCard key={index} trip={trip} />
         ))}
       </div>
+
       <section></section>
     </>
   );
 };
 
-export default packages;
+export default Packages;

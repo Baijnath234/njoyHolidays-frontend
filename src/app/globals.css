@@ -120,3 +120,53 @@
     @apply bg-background text-foreground;
   }
 }
+
+.testimonial-slider .slick-dots li button:before {
+  color: #38bdf8;
+  font-size: 10px;
+}
+
+.testimonial-slider .slick-dots li.slick-active button:before {
+  color: #0ea5e9;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: inherit !important;
+}
+
+/* LIGHT */
+.light {
+  --bg: #ffffff;
+  --text: #000000;
+}
+
+/* DARK */
+.dark {
+  --bg: #0b1220;
+  --text: #ffffff;
+}
+
+/* OCEAN (travel vibe 🌊) */
+.ocean {
+  --bg: #0f172a;
+  --text: #38bdf8;
+}
+
+/* SUNSET 🌅 */
+.sunset {
+  --bg: #2d1b69;
+  --text: #f97316;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}

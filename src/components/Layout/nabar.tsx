@@ -1,345 +1,199 @@
 "use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaHome,
-  FaHotel,
-  FaInstagram,
-  FaUserCircle,
-} from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
-import { IoCallSharp, IoPricetagsOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
-import { GiPalmTree } from "react-icons/gi";
-import { MdFlight, MdMiscellaneousServices, MdPublic } from "react-icons/md";
-import { FaXTwitter } from "react-icons/fa6";
-
-const services = [
-  {
-    Title: "Air Ticket",
-    Image: "",
-  },
-  {
-    Title: "Travel Insurance",
-    Image: "",
-  },
-  {
-    Title: "Hotel booking",
-    Image: "",
-  },
-  {
-    Title: "Tour package",
-    Image: "",
-  },
-  {
-    Title: "Passport Assistence",
-    Image: "",
-  },
-  {
-    Title: "Visa Assistence",
-    Image: "",
-  },
-  {
-    Title: "Western Union",
-    Image: "",
-  },
-];
+import { FaUserCircle } from "react-icons/fa";
+import { FiSettings } from "react-icons/fi";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+
+  // 🔐 AUTH STATES (replace with real auth later)
+  const [isLoggedIn] = useState(false);
+  const [isSignedUp] = useState(false);
+  const { theme } = useTheme();
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfileModal = () => setShowProfileModal((prev) => !prev);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  console.log({ isModalOpen });
-
-  const [activeTab, setActiveTab] = useState<"service">("service");
-
-  const dataMap = {
-    service: services,
-  };
-
-  const data = dataMap[activeTab];
-
-  const router = useRouter();
-
-  const openMenuModal = (menu: string, href: string) => {
-    const modalMenus = ["Services"];
-
-    if (modalMenus.includes(menu)) {
-      setActiveMenu(menu);
-      setIsModalOpen(true);
-
-      if (menu === "Services") {
-        setActiveTab("service");
-      }
-    } else {
-      setIsModalOpen(false);
-      setActiveMenu(null);
-      router.push(href);
-    }
-  };
-
-  const closeMenuModal = () => {
-    setActiveMenu(null);
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
-    window.onscroll = () => {
-      setIsScrolled(window.pageYOffset === 0 ? false : true);
-      return () => (window.onscroll = null);
+    const handleScroll = () => {
+      setIsScrolled(window.pageYOffset > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const navLinkss = [
-    {
-      label: "Home",
-      icon: <FaHome className="text-[#0dbeff]" size={28} />,
-      href: "/",
-    },
-    {
-      label: "Domestic",
-      icon: <GiPalmTree className="text-[#0dbeff]" size={28} />,
-      href: "/domestic",
-    },
-    {
-      label: "International",
-      icon: <MdPublic className="text-[#0dbeff]" size={28} />,
-      href: "/international",
-    },
-    {
-      label: "Flight",
-      icon: <MdFlight className="text-[#0dbeff]" size={28} />,
-      href: "/flight",
-    },
-    {
-      label: "Hotels",
-      icon: <FaHotel className="text-[#0dbeff]" size={28} />,
-      href: "/hotels",
-    },
-    {
-      label: "Services",
-      icon: <MdMiscellaneousServices className="text-[#0dbeff]" size={28} />,
-      href: "/services",
-    },
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Packages", href: "/packages" },
+    { label: "Domestic", href: "/domestic" },
+    { label: "International", href: "/international" },
+    { label: "Services", href: "/services" },
   ];
 
-  const navLinks = [
-    "Home",
-    "Domestic",
-    "International",
-    "Flight",
-    "Hotels",
-    "Services",
-  ].map((label) => ({
-    label,
-    href:
-      label === "Home" ? "/" : "/" + label.toLowerCase().replace(/\s+/g, "-"),
-  }));
+  // 🎨 THEME BASED NAVBAR STYLE
+  const navBg =
+    theme === "light"
+      ? "bg-sky-400 text-black"
+      : theme === "dark"
+        ? "bg-[#020617] text-white"
+        : theme === "ocean"
+          ? "bg-[#0f172a] text-cyan-300"
+          : theme === "sunset"
+            ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white"
+            : "bg-[#020617] text-white";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 w-full z-50 h-22 flex items-center justify-between px-6 py-4 text-black transition-all duration-300 ${
-        isScrolled
-          ? "shadow backdrop-blur bg-[#0dbeff]/100"
-          : "shadow backdrop-blur bg-[#0dbeff]/100"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 transition-all duration-300
+      ${isScrolled ? "backdrop-blur-lg shadow-lg" : ""}
+      ${navBg}`}
     >
       {/* Logo */}
-      <div className="w-100 h-14 flex items-center ">
-        <Link href="/" className="flex items-center ">
-          <div className="relative w-50 h-50 ">
-            <Image
-              src={Images.src}
-              alt="NJOY Holiday's Logo"
-              layout="fill"
-              objectFit="contain"
-              priority
-            />
-          </div>
-        </Link>
-      </div>
+      <Link href="/" className="flex items-center">
+        <div className="relative w-[140px] h-[50px]">
+          <Image
+            src={Images.src}
+            alt="NjoyHolidayz Logo"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </Link>
 
-      {/* Desktop Menu - Centered */}
-      <nav className="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
+      {/* Desktop Menu */}
+      <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.label}
-            onClick={() => openMenuModal(link.label, link.href)}
-            className="hover:underline font-medium"
+            href={link.href}
+            className="relative font-medium group"
           >
             {link.label}
-          </a>
+            <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         ))}
       </nav>
 
-      {/* Right side desktop icons */}
-      <div className="hidden md:flex items-center space-x-4 text-sm relative z-40">
-        {/* Search icon */}
-        <div className="relative flex items-center justify-center">
-          <Link
-            href=""
-            // onClick={''}
-            className="text-xl focus:outline-none"
-          >
-            <FiSearch className="text-black" size={28} />
+      {/* Right Side */}
+      <div className="hidden md:flex items-center gap-4 relative">
+        {/* Not Signed Up */}
+        {!isSignedUp && (
+          <Link href="/signUp">
+            <button
+              className={`px-4 py-2 rounded-full transition ${
+                theme === "light"
+                  ? "bg-white text-black hover:bg-gray-200"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
+            >
+              Sign Up
+            </button>
           </Link>
-        </div>
-        <div className="relative flex items-center justifuy-center">
-          <Link href="" className="text-xl focus:outline-none">
-            <IoPricetagsOutline className="text-black" size={28} />
-          </Link>
-        </div>
+        )}
 
-        {/* Profile Icon + Modal Wrapper */}
-        <div className="relative flex items-center justify-center">
-          <Link
-            href=""
-            onClick={toggleProfileModal}
-            className="text-xl focus:outline-none"
-          >
-            <FaUserCircle className="text-black" size={28} />
+        {/* Signed but Not Logged In */}
+        {isSignedUp && !isLoggedIn && (
+          <Link href="/login">
+            <button className="px-4 py-2 rounded-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition">
+              Login
+            </button>
           </Link>
+        )}
 
-          {/* Profile Modal */}
-          {showProfileModal && (
-            <div className="absolute top-10 right-0 shadow-lg bg-white rounded-xl p-4 w-48 flex flex-col space-y-2 text-sm z-50 border border-gray-200">
-              <Link href="/profile" className="hover:underline">
-                👤 Profile
-              </Link>
-              <Link href="/settings" className="hover:underline">
-                ⚙️ Settings
-              </Link>
-              <Link href="/about-us" className="hover:underline">
-                ℹ️ About Us
-              </Link>
-              <button className="text-left hover:underline">
-                🔐 Login / Logout
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Logged In */}
+        {isLoggedIn && (
+          <div className="relative">
+            <button onClick={toggleProfileModal}>
+              <FaUserCircle size={30} />
+            </button>
+
+            {showProfileModal && (
+              <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-[#1a2238] rounded-xl shadow-lg p-3 space-y-2 text-sm">
+                <Link href="/profile" className="block hover:underline">
+                  👤 Profile
+                </Link>
+                <Link href="/settings" className="block hover:underline">
+                  ⚙️ Settings
+                </Link>
+                <Link href="/about-us" className="block hover:underline">
+                  ℹ️ About Us
+                </Link>
+                <button className="w-full text-left hover:underline">
+                  🚪 Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Settings Icon */}
+        <Link href="/settings">
+          <button
+            className={`p-2 rounded-full transition ${
+              theme === "light"
+                ? "border-white hover:bg-white/30"
+                : "border-gray-300 hover:bg-gray-100 dark:hover:bg-[#1a2238]"
+            }`}
+          >
+            <FiSettings size={20} />
+          </button>
+        </Link>
       </div>
 
-      {/* Hamburger Menu Button (Mobile) */}
+      {/* Mobile Menu Button */}
       <button
-        className="md:hidden focus:outline-none text-white z-20"
+        className="md:hidden text-black dark:text-white"
         onClick={toggleMenu}
-        aria-label="Toggle navigation menu"
       >
-        <svg
-          className="w-6 h-6 text-black"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        ☰
       </button>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white text-black px-6 py-6 space-y-6 shadow-lg z-0">
-          {navLinkss.map((link) => (
-            <div
+        <div
+          className={`md:hidden absolute top-full left-0 right-0 px-6 py-6 space-y-4 shadow-lg ${navBg}`}
+        >
+          {navLinks.map((link) => (
+            <Link
               key={link.label}
-              onClick={() => {
-                openMenuModal(link.label, link.href);
-                setMenuOpen(false);
-              }}
-              className="flex items-center gap-4 text-xl font-semibold p-3 rounded-lg hover:bg-gray-100 cursor-pointer transition"
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-lg font-semibold cursor-pointer hover:text-blue-500 block"
             >
-              <span className="text-2xl text-blue-500">{link.icon}</span>
               {link.label}
-            </div>
+            </Link>
           ))}
 
-          <div className="flex md:flex-row justify-center gap-10 mt-10">
-            <a href="tel:+919334222448" className="hover:text-white">
-              <IoCallSharp className="text-[#067506]" size={30} />
-            </a>
-            <a
-              href="https://www.facebook.com/Njoy-Holidayz-Tours-and-Visa-Services-106747764361698/"
-              className="hover:text-white"
-            >
-              <FaFacebookF className="text-[#0d5cdb]" size={30} />
-            </a>
-            <a
-              href="https://mobile.twitter.com/njoy_holidayz"
-              className="hover:text-white"
-            >
-              <FaXTwitter className="text-black" size={30} />
-            </a>
-            <a
-              href="https://www.instagram.com/njoy_holidayz?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D"
-              className="hover:text-white"
-            >
-              <FaInstagram className="text-[#bd1a1a]" size={30} />
-            </a>
+          <div className="pt-4 border-t border-gray-300 dark:border-gray-700">
+            {!isSignedUp && (
+              <Link href="/signUp" className="block mb-2">
+                Sign Up
+              </Link>
+            )}
+            {isSignedUp && !isLoggedIn && (
+              <Link href="/login" className="block">
+                Login
+              </Link>
+            )}
           </div>
-        </div>
-      )}
 
-      {activeMenu && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-center items-start pt-20">
-          <div className="bg-white w-[90%] max-w-7xl h-[80vh] rounded-xl shadow-xl overflow-y-auto p-6">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">{activeMenu}</h2>
-
-              <button
-                onClick={closeMenuModal}
-                className="text-gray-600 hover:text-black"
-              >
-                CLOSE ✕
+          <div className="pt-4 border-t border-gray-300 dark:border-gray-700">
+            <Link href="/settings">
+              <button className="p-2 rounded-full border hover:bg-gray-200 transition">
+                <FiSettings size={20} />
               </button>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex gap-4 mb-6">
-              {activeMenu === "Services" && (
-                <button
-                  onClick={() => setActiveTab("service")}
-                  className={`px-4 py-2 rounded-full ${
-                    activeTab === "service"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  Services
-                </button>
-              )}
-            </div>
-
-            {/* Card Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {data?.map((item, index) => (
-                <div
-                  key={`${item.Title}-${index}`}
-                  className="bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer"
-                >
-                  <div className="relative w-full h-40">
-                    <Image
-                      src={item.Image}
-                      alt={item.Title}
-                      fill
-                      className="object-cover rounded-t-lg"
-                    />
-                  </div>
-
-                  <div className="p-3 font-semibold text-sm">{item.Title}</div>
-                </div>
-              ))}
-            </div>
+            </Link>
           </div>
         </div>
       )}

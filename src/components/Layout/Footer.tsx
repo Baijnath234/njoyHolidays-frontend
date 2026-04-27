@@ -2,155 +2,160 @@
 
 import Image from "next/image";
 import {
+  FaArrowUp,
   FaFacebookF,
-  FaTwitter,
   FaInstagram,
+  FaTwitter,
   FaWhatsapp,
 } from "react-icons/fa";
-import Images from '../../../public/asset/images/NjoyHolidays_logo.png'
+import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400 text-sm pt-16 pb-5 relative">
-      {/* Chat Button (left side) */}
-      <div className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50">
-        <button className="bg-gray-700 text-white px-3 py-2 rotate-[-90deg] origin-bottom-left rounded-t-md tracking-widest font-semibold hover:bg-gray-600">
-          CHAT WITH US
+    <footer className="bg-[#020617] text-gray-300">
+      {/* 🔥 Top CTA */}
+      <div className="px-6 py-12 border-b border-white/10 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+          Plan Your Next Trip ✈️
+        </h2>
+        <p className="text-gray-400 mb-6 text-sm md:text-base">
+          Discover destinations, hotels & visa services—all in one place.
+        </p>
+
+        <button className="bg-[#0dbeff] hover:bg-[#0099cc] px-6 py-3 rounded-full text-white font-medium transition">
+          Explore Packages
         </button>
       </div>
 
-      {/* Footer Content */}
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-5 gap-10 border-b border-gray-700 pb-12">
-          {/* Column 1 */}
+      {/* 🔥 Main Footer */}
+      <div className="px-6 py-12 max-w-7xl mx-auto">
+        {/* Mobile: stacked | Desktop: grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Brand */}
           <div>
-            <h4 className="text-white font-bold mb-4">TAILORED EXPERIENCES</h4>
-            <ul className="space-y-2">
-              <li>Adventure</li>
-              <li>Celebration</li>
-              <li>Culinary</li>
-              <li>Family</li>
-              <li>Ultraluxe</li>
-              <li>Voyages</li>
-              <li>Speciality</li>
-            </ul>
-          </div>
-
-          {/* Column 2 */}
-          <div>
-            <h4 className="text-white font-bold mb-4">DESTINATIONS</h4>
-            <ul className="space-y-2">
-              <li>Ireland</li>
-              <li>UK</li>
-              <li>Africa</li>
-              <li>Classic Europe</li>
-              <li>Asia</li>
-              <li>The Americas</li>
-              <li>Exotic Islands</li>
-              <li>Polar Regions</li>
-              <li>Oceania</li>
-            </ul>
-          </div>
-
-          {/* Column 3 */}
-          <div>
-            <h4 className="text-white font-bold mb-4">PRIVATE RENTALS</h4>
-            <ul className="space-y-2">
-              <li>Castles</li>
-              <li>Estates</li>
-              <li>Villas & Houses</li>
-            </ul>
-          </div>
-
-          {/* Column 4 */}
-          <div>
-            <h4 className="text-white font-bold mb-4">NEWS & PRESS</h4>
-            <ul className="space-y-2">
-              <li>All</li>
-              <li>Press</li>
-              <li>News</li>
-              <li>Newsletter</li>
-            </ul>
-          </div>
-
-          {/* Column 5 */}
-          <div>
-            <h4 className="text-white font-bold mb-4">ABOUT US</h4>
-            <ul className="space-y-2">
-              <li>Why choose A&B</li>
-              <li>Our Team</li>
-              <li>Work with us</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Logo and Contact Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-12 space-y-8 md:space-y-0">
-          <div className="w-60 h-60 relative">
-            <Image
-              src={Images.src}
-              alt="NJOY HOLIDAY'S Logo"
-              layout="fill"
-              objectFit="contain"
-            />
-          </div>
-          {/* Left side */}
-          <div className="text-center md:text-left">
-            <div className="text-white text-2xl font-bold mb-4">
-              NJOY HOLIDAYZ
+            <div className="w-32 h-20 relative mb-4">
+              <Image
+                src={Images.src}
+                alt="logo"
+                fill
+                loading="lazy"
+                className="object-contain"
+              />
             </div>
-            <div className="space-y-1">
-              <p>8 J.J ROAD, UPPER BAZRAR RANCHI</p>
-              <p>RANCHI, JHARKHAND (834001)</p>
-              <p>Contuct us: +91 9334222448</p>
-              <p>holidayznjoy@gmail.com</p>
+
+            <p className="text-sm text-gray-400 mb-4">
+              Your trusted travel partner for tours, hotels, and visa services.
+            </p>
+
+            {/* Social */}
+            <div className="flex gap-3">
+              {[FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp].map(
+                (Icon, i) => (
+                  <div
+                    key={i}
+                    className="p-2 bg-white/10 rounded-full hover:bg-[#0dbeff] transition cursor-pointer"
+                  >
+                    <Icon size={14} />
+                  </div>
+                ),
+              )}
             </div>
           </div>
 
-          {/* Right side - Social Links */}
-          <div className="flex space-x-4">
-            <a href="https://www.facebook.com/Njoy-Holidayz-Tours-and-Visa-Services-106747764361698/" className="hover:text-white">
-              <FaFacebookF size={20} />
-            </a>
-            <a href="https://mobile.twitter.com/njoy_holidayz" className="hover:text-white">
-              <FaTwitter size={20} />
-            </a>
-            <a href="https://www.instagram.com/njoy_holidayz?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D" className="hover:text-white">
-              <FaInstagram size={20} />
-            </a>
-            <a href="https://Wa.me/+919334222448" className="hover:text-white">
-              <FaWhatsapp size={20} />
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="hover:text-white cursor-pointer">Home</li>
+              <li className="hover:text-white cursor-pointer">Packages</li>
+              <li className="hover:text-white cursor-pointer">Hotels</li>
+              <li className="hover:text-white cursor-pointer">Visa Services</li>
+            </ul>
+          </div>
+
+          {/* Destinations */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Top Destinations</h4>
+            <ul className="space-y-2 text-sm">
+              <li>Dubai</li>
+              <li>Maldives</li>
+              <li>Thailand</li>
+              <li>Europe</li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Contact Us</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>Ranchi, Jharkhand</li>
+              <li>+91 9334222448</li>
+              <li>holidayznjoy@gmail.com</li>
+            </ul>
+
+            {/* WhatsApp CTA */}
+            <a
+              href="https://Wa.me/+919334222448"
+              className="inline-block mt-4 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md text-white text-sm"
+            >
+              Chat on WhatsApp
             </a>
           </div>
         </div>
 
-        {/* Bottom Links */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-12 text-xs text-gray-500 space-y-4 md:space-y-0">
-          <div className="flex space-x-4">
-            <a href="#" className="hover:text-white">
-              Terms & Conditions
-            </a>
-            <a href="#" className="hover:text-white">
-              Sustainability Policy
-            </a>
-            <a href="#" className="hover:text-white">
+        {/* 🔥 Divider */}
+        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+          <p>© 2025 Njoy Holidayz. All rights reserved.</p>
+
+          <div className="flex gap-4">
+            <span className="hover:text-white cursor-pointer">
               Privacy Policy
-            </a>
+            </span>
+            <span className="hover:text-white cursor-pointer">Terms</span>
           </div>
-          <p>
-            ©2025 Njoy Holiday&apos;s – Njoy Holidayz PVT LTD, All rights
-            reserved
-          </p>
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-6 right-6 bg-gray-700 hover:bg-gray-600 p-3 rounded-full text-white shadow-lg z-50"
-      >
-        ↑
-      </button>
+      {/* 🔥 Floating Buttons (Mobile Optimized) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+        {/* WhatsApp Button */}
+        <div className="group relative flex items-center">
+          {/* Label */}
+          <span className="absolute right-14 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300 bg-white/10 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full shadow">
+            Chat with us
+          </span>
+
+          {/* Glow Effect */}
+          <div className="absolute inset-0 rounded-full bg-green-500 blur-xl opacity-40 animate-pulse" />
+
+          {/* Button */}
+          <a
+            href="https://Wa.me/+919334222448"
+            className="relative bg-green-500 hover:bg-green-600 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+          >
+            <FaWhatsapp className="text-white text-lg" />
+          </a>
+        </div>
+
+        {/* Scroll to Top */}
+        <div className="group relative flex items-center">
+          {/* Label */}
+          <span className="absolute right-14 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300 bg-white/10 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full shadow">
+            Back to top
+          </span>
+
+          {/* Glow Effect */}
+          <div className="absolute inset-0 rounded-full bg-[#0dbeff] blur-xl opacity-40 animate-pulse" />
+
+          {/* Button */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="relative bg-gradient-to-r from-[#0dbeff] to-[#0077ff] p-4 rounded-full shadow-lg text-white transition-all duration-300 hover:scale-110 active:scale-95"
+          >
+            <FaArrowUp />
+          </button>
+        </div>
+      </div>
     </footer>
   );
 }
