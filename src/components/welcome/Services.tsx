@@ -9,7 +9,6 @@ import { RiVisaLine } from "react-icons/ri";
 import { FcAbout } from "react-icons/fc";
 
 import { motion } from "framer-motion";
-import CountUp from "react-countup";
 import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
 
@@ -114,12 +113,9 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-24">
 
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={index}
-              whileHover={{ y: -10, scale: 1.04 }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
+              className="transition-transform duration-200 hover:-translate-y-2 hover:scale-[1.02]"
             >
               <Link
                 href={service.link}
@@ -137,7 +133,7 @@ export default function Services() {
                   {service.description}
                 </p>
               </Link>
-            </motion.div>
+            </div>
           ))}
 
         </div>
@@ -151,7 +147,7 @@ export default function Services() {
               className={`${cardStyle} backdrop-blur-xl border p-8 rounded-xl`}
             >
               <h3 className="text-4xl font-bold text-cyan-400">
-                <CountUp end={num} duration={3} />+
+                {num}+
               </h3>
               <p className={`${textMuted} mt-2`}>
                 {i === 0

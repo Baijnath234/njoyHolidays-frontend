@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import AndhraPradesh from "../../../public/asset/images/AndhraPradesh.jpg";
 import ArunachalPradesh from "../../../public/asset/images/Arunachal Pradesh.jpg";
@@ -194,11 +194,13 @@ const Domestic = () => {
     "states",
   );
 
-  const dataMap = {
-    states,
-    territories,
-  };
-  const data = dataMap[activeTab];
+  const data = useMemo(
+    () => ({
+      states,
+      territories,
+    })[activeTab],
+    [activeTab],
+  );
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 mt-20">
@@ -232,19 +234,16 @@ const Domestic = () => {
       {/* Card Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {data?.map((item: Destination, index) => (
-          <motion.div
+          <div
             key={index}
-            whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
+            className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-105"
           >
             <div className="relative w-full h-40 overflow-hidden">
               <Image
                 src={item.Image}
                 alt={item.Title}
                 fill
+                loading="lazy"
                 className="object-cover transition-transform duration-500 hover:scale-110"
               />
             </div>
@@ -252,7 +251,7 @@ const Domestic = () => {
             <div className="p-3 font-semibold text-sm text-center">
               {item.Title}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

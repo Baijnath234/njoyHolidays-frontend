@@ -13,6 +13,7 @@ export default function ProductDetails({ trip }: Props) {
         <Image
           src={trip.image}
           alt={trip.title}
+          loading="lazy"
           className="rounded-xl"
         />
 

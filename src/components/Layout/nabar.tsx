@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Images from "../../../public/asset/images/NjoyHolidays_logo.png";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import { FiSettings } from "react-icons/fi";
 import { useTheme } from "@/app/context/ThemeContext";
 
@@ -17,7 +16,6 @@ export default function NavBar() {
   // 🔐 AUTH STATES (replace with real auth later)
   const [isLoggedIn] = useState(false);
   const [isSignedUp] = useState(false);
-  const router = useRouter();
   const { theme } = useTheme();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -76,14 +74,14 @@ export default function NavBar() {
       {/* Desktop Menu */}
       <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.label}
-            onClick={() => router.push(link.href)}
-            className="relative cursor-pointer font-medium group"
+            href={link.href}
+            className="relative font-medium group"
           >
             {link.label}
             <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
+          </Link>
         ))}
       </nav>
 
@@ -167,16 +165,14 @@ export default function NavBar() {
           className={`md:hidden absolute top-full left-0 right-0 px-6 py-6 space-y-4 shadow-lg ${navBg}`}
         >
           {navLinks.map((link) => (
-            <div
+            <Link
               key={link.label}
-              onClick={() => {
-                router.push(link.href);
-                setMenuOpen(false);
-              }}
-              className="text-lg font-semibold cursor-pointer hover:text-blue-500"
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-lg font-semibold cursor-pointer hover:text-blue-500 block"
             >
               {link.label}
-            </div>
+            </Link>
           ))}
 
           <div className="pt-4 border-t border-gray-300 dark:border-gray-700">

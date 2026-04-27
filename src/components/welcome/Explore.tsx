@@ -158,6 +158,7 @@ export default function Exploer() {
                   src={item.image}
                   alt={item.name}
                   fill
+                  loading="lazy"
                   className="object-cover"
                 />
 

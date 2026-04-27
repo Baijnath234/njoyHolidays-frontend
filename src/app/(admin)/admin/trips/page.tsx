@@ -1,62 +1,47 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useMemo } from "react";
+import { useAuthFetch } from "@/hooks/useAuthFetch";
+
+type FormattedTrip = {
+  slug: number;
+  title: string;
+  price: string | number;
+  duration: string;
+  date: string;
+  pax: string | number;
+  hotels: string;
+};
 
 export default function AdminTrips() {
-  const [trips, setTrips] = useState<any[]>([]);
-  console.log({ trips });
+  const { data, status, error } = useAuthFetch<any[]>(
+    "http://192.168.1.3:8082/api/packages/getAllTourPackage",
+  );
 
+  const trips = useMemo<FormattedTrip[]>(() => {
+    if (!data) return [];
+    return data.map((item: any, index: number) => ({
+      slug: index,
+      title: item.packageName,
+      price: item.dayNight?.[0]?.hotelPrice || "N/A",
+      duration: item.duration,
+      date: item.dayNight?.[0]?.dayName || "N/A",
+      pax: item.noOfPersons,
+      hotels: item.dayNight?.[0]?.hotelName || "N/A",
+    }));
+  }, [data]);
 
-  useEffect(() => {
-    const fetchTrips = async () => {
-      try {
-        // ✅ Get token dynamically
-        const token = localStorage.getItem("token");
+  if (status === "loading") {
+    return <div className="p-6">Loading trips...</div>;
+  }
 
-        if (!token) {
-          console.error("No token found");
-          return;
-        }
-
-        const res = await fetch(
-          "http://192.168.1.3:8082/api/packages/getAllTourPackage",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (!res.ok) {
-          console.error("Failed request:", res.status);
-          return;
-        }
-
-        const data = await res.json();
-        console.log("RAW API:", data);
-
-        const formattedTrips = data.map((item: any, index: number) => ({
-          slug: index,
-          title: item.packageName,
-          price: item.dayNight?.[0]?.hotelPrice || "N/A",
-          duration: item.duration,
-          date: item.dayNight?.[0]?.dayName || "N/A",
-          pax: item.noOfPersons,
-          hotels: item.dayNight?.[0]?.hotelName || "N/A",
-        }));
-
-        setTrips(formattedTrips);
-      } catch (error) {
-        console.error("Error fetching trips:", error);
-      }
-    };
-
-    // ✅ Ensure client-side execution
-    if (typeof window !== "undefined") {
-      fetchTrips();
-    }
-  }, []);
+  if (status === "error") {
+    return (
+      <div className="p-6 text-red-600">
+        Unable to load trips. {error || "Please login or try again later."}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -82,7 +67,7 @@ export default function AdminTrips() {
               <td>{trip.duration}</td>
               <td>{trip.date}</td>
               <td>{trip.pax}</td>
-              <td>{trip.holtes}</td>
+              <td>{trip.hotels}</td>
             </tr>
           ))}
         </tbody>

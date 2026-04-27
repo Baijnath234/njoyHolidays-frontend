@@ -94,6 +94,7 @@ export default function PackagesSection() {
                     alt={pkg.title}
                     layout="fill"
                     objectFit="cover"
+                    loading="lazy"
                   />
                 </div>
 

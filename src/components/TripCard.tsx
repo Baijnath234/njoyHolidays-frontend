@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { StaticImageData } from "next/image";
-import { useRouter } from "next/navigation";
 
 interface Trip {
   image: string | StaticImageData;
@@ -19,10 +19,8 @@ interface Trip {
 }
 
 export default function TripCard({ trip }: { trip: Trip }) {
-  const router = useRouter();
-
   return (
-    <div className="group w-[340px] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <Link href={`/product/${trip.slug}`} className="group w-[340px] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 block">
 
       {/* Image Section */}
       <div className="relative h-56 overflow-hidden">
@@ -30,6 +28,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
           src={trip.image}
           alt={trip.slug}
           fill
+          loading="lazy"
           className="object-cover group-hover:scale-110 transition-transform duration-500"
         />
 
@@ -83,12 +82,12 @@ export default function TripCard({ trip }: { trip: Trip }) {
 
         {/* CTA Button */}
         <button
-          onClick={() => router.push(`/product/${trip.slug}`)}
+          type="button"
           className="w-full bg-gradient-to-r from-[#0dbeff] to-[#0077ff] text-white py-2 rounded-lg font-medium shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
         >
           {trip.buttonLabel}
         </button>
       </div>
-    </div>
+    </Link>
   );
 }

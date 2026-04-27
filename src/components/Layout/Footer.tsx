@@ -38,6 +38,7 @@ export default function Footer() {
                 src={Images.src}
                 alt="logo"
                 fill
+                loading="lazy"
                 className="object-contain"
               />
             </div>

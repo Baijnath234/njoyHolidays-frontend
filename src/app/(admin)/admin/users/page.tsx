@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { useAuthFetch } from "@/hooks/useAuthFetch";
 
 type User = {
   _id: string;
@@ -11,80 +12,24 @@ type User = {
   profileImage?: string;
 };
 
-
 const Page = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, status, error } = useAuthFetch<User[]>(
+    "http://192.168.1.3:8080/api/user/users",
+  );
 
-  // 🔹 Fetch Users
-  const fetchUsers = async () => {
-  try {
-    // ✅ Get token from localStorage
-    const token = localStorage.getItem("token");
+  const users = useMemo(() => data ?? [], [data]);
 
-    if (!token) {
-      console.error("No token found");
-      return;
-    }
-
-    const res = await fetch(
-      "http://192.168.1.3:8080/api/user/users",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      console.error("Unauthorized or failed request");
-      return;
-    }
-
-    const data: User[] = await res.json();
-    setUsers(data);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-  } finally {
-    setLoading(false);
+  if (status === "loading") {
+    return <div className="p-6">Loading users...</div>;
   }
-};
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  // 🔹 Toggle Active/Inactive
-  // const toggleStatus = async (id: string, currentStatus: boolean) => {
-  //   try {
-  //     await fetch(
-  //       `http://192.168.1.11:8081/api/user/user/${id}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${TOKEN}`,
-  //         },
-  //         body: JSON.stringify({ isActive: !currentStatus }),
-  //       }
-  //     );
-
-  //     // Optimistic UI update
-  //     setUsers((prev) =>
-  //       prev.map((user) =>
-  //         user._id === id
-  //           ? { ...user, isActive: !currentStatus }
-  //           : user
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.error("Error updating status:", error);
-  //   }
-  // };
-
-  if (loading) return <div className="p-6">Loading users...</div>;
+  if (status === "error") {
+    return (
+      <div className="p-6 text-red-600">
+        Unable to load users. {error || "Please login or try again later."}
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">

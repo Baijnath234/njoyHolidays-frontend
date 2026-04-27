@@ -21,6 +21,7 @@ export default function HotelCard({ hotel }: { hotel: Hotel }) {
           src={hotel.image}
           alt={hotel.name}
           fill
+          loading="lazy"
           className="object-cover group-hover:scale-110 transition-transform duration-500"
         />
 

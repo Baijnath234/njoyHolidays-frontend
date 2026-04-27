@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { generateTripPDF } from "@/lib/generatePDF";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Trip } from "@/types";
 
 type Props = {
@@ -11,15 +12,16 @@ type Props = {
 };
 
 export default function TripDetails({ params }: Props) {
-  const [trip, setTrip] = useState<Trip | null>(null);
+  const [trips] = useLocalStorage<Trip[]>("trips", []);
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("trips") || "[]");
-    const found = data.find((t: Trip) => t.slug === params.slug);
-    setTrip(found);
-  }, [params.slug]);
+  const trip = useMemo(
+    () => trips.find((item) => item.slug === params.slug) ?? null,
+    [params.slug, trips],
+  );
 
-  if (!trip) return <div>Loading...</div>;
+  if (!trip) {
+    return <div className="p-6">Loading trip details...</div>;
+  }
 
   return (
     <div className="p-6">
