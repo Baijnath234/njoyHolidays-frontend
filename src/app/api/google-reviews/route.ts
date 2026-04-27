@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic"; // IMPORTANT
+export const dynamic = "auto";
 
 export async function GET() {
   try {
