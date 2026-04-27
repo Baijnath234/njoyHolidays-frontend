@@ -72,12 +72,12 @@ export default function CreateTrip() {
     slug, 
   };
 
-  const existing = JSON.parse(localStorage.getItem("trips") || "[]");
-
-  localStorage.setItem(
-    "trips",
-    JSON.stringify([...existing, updatedTrip]) 
-  );
+  // Removed localStorage access that was causing SSR issues
+  // const existing = JSON.parse(localStorage.getItem("trips") || "[]");
+  // localStorage.setItem(
+  //   "trips",
+  //   JSON.stringify([...existing, updatedTrip]) 
+  // );
 
   // update room
   const updateRoom = <K extends keyof Room>(
