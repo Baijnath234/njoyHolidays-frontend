@@ -37,6 +37,7 @@ export default function CreateTrip() {
   const router = useRouter();
 
   const [trip, setTrip] = useState<Trip>({
+    slug: "",
     travelDate: "",
     adults: 0,
     children: 0,
@@ -57,6 +58,23 @@ export default function CreateTrip() {
       },
     ],
   });
+
+  const generateSlug = (destination: string) =>
+    destination.toLowerCase().replace(/\s+/g, "-");
+
+  const slug = generateSlug(trip.destination);
+
+  const updatedTrip = {
+    ...trip,
+    slug, 
+  };
+
+  const existing = JSON.parse(localStorage.getItem("trips") || "[]");
+
+  localStorage.setItem(
+    "trips",
+    JSON.stringify([...existing, updatedTrip]) 
+  );
 
   // update room
   const updateRoom = <K extends keyof Room>(
@@ -83,7 +101,7 @@ export default function CreateTrip() {
 
 
   const TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc0NDQyODk1LCJleHAiOjE3NzQ1MjkyOTV9.1Sw0TTc8BjZZHCrjvTSWcLs1Nw0fDy0uAagyiDf57Mk";
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc0NDQyODk1LCJleHAiOjE3NzQ1MjkyOTV9.1Sw0TTc8BjZZHCrjvTSWcLs1Nw0fDy0uAagyiDf57Mk";
 
   // ✅ UPDATED SUBMIT FUNCTION (API INTEGRATION)
   const handleSubmit = async () => {
@@ -124,7 +142,7 @@ export default function CreateTrip() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-             Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${TOKEN}`,
           },
           body: JSON.stringify(payload),
         },

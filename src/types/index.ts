@@ -27,7 +27,8 @@ export type Room = {
 //   itinerary: string[];
 // }
 
-export interface Trip  {
+export interface Trip {
+  slug: string; 
   travelDate: string;
   adults: number;
   children: number;
@@ -39,4 +40,4 @@ export interface Trip  {
   destination: string;
   flightSource: string;
   rooms: Room[];
-};
+}
