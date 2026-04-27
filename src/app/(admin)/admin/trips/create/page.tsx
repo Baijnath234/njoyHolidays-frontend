@@ -4,28 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Accordion from "@/components/Accordion";
 import { generateTripPDF } from "@/lib/generatePDF";
+import { Room, Trip } from "@/types";
 
-type Room = {
-  roomType: string;
-  meal: string;
-  pax: number;
-  date: string;
-  rate: number;
-};
-
-type Trip = {
-  travelDate: string;
-  adults: number;
-  children: number;
-  nights: number;
-  days: number;
-  hotelType: string;
-  mealPlan: string;
-  transport: string;
-  destination: string;
-  flightSource: string;
-  rooms: Room[];
-};
 
 type DayNight = {
   flightSource: string;
