@@ -29,6 +29,9 @@ export type Room = {
 
 export interface Trip {
   slug: string; 
+  title: string;
+  image: string;
+  locationLabel: string;
   travelDate: string;
   adults: number;
   children: number;

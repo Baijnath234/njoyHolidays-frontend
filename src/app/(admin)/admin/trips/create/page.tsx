@@ -38,6 +38,9 @@ export default function CreateTrip() {
 
   const [trip, setTrip] = useState<Trip>({
     slug: "",
+    title: "",
+    image: "",
+    locationLabel: "",
     travelDate: "",
     adults: 0,
     children: 0,
