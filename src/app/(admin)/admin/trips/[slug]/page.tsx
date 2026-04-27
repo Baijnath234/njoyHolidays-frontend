@@ -1,9 +1,11 @@
-"use client";
-
 import { useMemo } from "react";
 import { generateTripPDF } from "@/lib/generatePDF";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Trip } from "@/types";
+
+export async function generateStaticParams() {
+  return [];
+}
 
 type Props = {
   params: {
