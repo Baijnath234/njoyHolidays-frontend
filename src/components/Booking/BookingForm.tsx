@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useFetch } from "@/hooks/useApi";
 import { API_ENDPOINTS, API_CONFIG } from "@/config/api";
+import { useBooking } from "@/hooks/useBooking";
+import { BookingItem } from "@/context/BookingContext";
 
 export interface BookingFormData {
   fullName: string;
@@ -13,12 +15,61 @@ export interface BookingFormData {
   specialRequests: string;
 }
 
+export type SubmittedBooking = BookingFormData & {
+  id: string;
+  status: "pending";
+  createdAt: string;
+  packages: Array<{
+    slug: string;
+    title: string;
+    duration: string;
+    price: number;
+    quantity: number;
+    unit: string;
+  }>;
+  totalAmount: number;
+};
+
 interface BookingFormProps {
   onSubmit?: (data: BookingFormData) => void;
   isLoading?: boolean;
 }
 
+const LOCAL_BOOKINGS_KEY = "njoyHolidayzBookings";
+
+const toBookedPackages = (items: BookingItem[]) =>
+  items.map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    duration: item.duration,
+    price: item.price,
+    quantity: item.quantity,
+    unit: item.unit,
+  }));
+
+const saveLocalBooking = (booking: SubmittedBooking) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const savedBookings = window.localStorage.getItem(LOCAL_BOOKINGS_KEY);
+  let existingBookings: SubmittedBooking[] = [];
+
+  try {
+    const parsedBookings = savedBookings ? JSON.parse(savedBookings) : [];
+    existingBookings = Array.isArray(parsedBookings) ? parsedBookings : [];
+  } catch {
+    existingBookings = [];
+  }
+
+  window.localStorage.setItem(
+    LOCAL_BOOKINGS_KEY,
+    JSON.stringify([booking, ...existingBookings]),
+  );
+};
+
 export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
+  const { bookings, totalPrice } = useBooking();
   const [formData, setFormData] = useState<BookingFormData>({
     fullName: "",
     email: "",
@@ -29,6 +80,7 @@ export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { makeRequest } = useFetch();
 
@@ -59,12 +111,28 @@ export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
       return;
     }
 
+    if (bookings.length === 0) {
+      setError("Please add at least one package before completing booking");
+      return;
+    }
+
+    const submittedBooking: SubmittedBooking = {
+      ...formData,
+      id: `booking-${Date.now()}`,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+      packages: toBookedPackages(bookings),
+      totalAmount: Math.round(totalPrice * 1.1),
+    };
+
     try {
+      setSubmitting(true);
+
       // Submit booking to API
-      const { data, error: apiError } = await makeRequest<any>(
+      const { error: apiError } = await makeRequest<any>(
         API_ENDPOINTS.BOOKINGS.CREATE,
         "POST",
-        formData,
+        submittedBooking,
         { baseUrl: API_CONFIG.BASE_URL }
       );
 
@@ -72,6 +140,7 @@ export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
         throw new Error(apiError);
       }
 
+      saveLocalBooking(submittedBooking);
       setSubmitted(true);
 
       // Call parent callback if provided
@@ -93,6 +162,8 @@ export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
       }, 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit booking");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -223,10 +294,10 @@ export function BookingForm({ onSubmit, isLoading = false }: BookingFormProps) {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || submitting}
         className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {isLoading ? "Processing..." : "Complete Booking"}
+        {isLoading || submitting ? "Processing..." : "Complete Booking"}
       </button>
     </form>
   );

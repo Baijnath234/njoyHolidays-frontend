@@ -5,6 +5,7 @@ import {
   CalendarDays,
   CircleDollarSign,
   ClipboardList,
+  Map,
   PackagePlus,
   Plane,
   RefreshCw,
@@ -40,12 +41,18 @@ type PackageDay = {
 };
 
 type TourPackage = {
+  _id?: string;
+  id?: string;
   packageName?: string;
   title?: string;
   destination?: string;
   duration?: string;
   price?: string | number;
   dayNight?: PackageDay[];
+  itinerary?: unknown[];
+  location?: string;
+  locationLabel?: string;
+  slug?: string;
 };
 
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
@@ -99,6 +106,15 @@ export default function AdminDashboard() {
   });
 
   const {
+    data: tripsData,
+    status: tripsStatus,
+    error: tripsError,
+    reload: reloadTrips,
+  } = useApi<TourPackage[]>(API_ENDPOINTS.TRIPS.GET_ALL, {
+    baseUrl: API_CONFIG.BASE_URL,
+  });
+
+  const {
     data: usersData,
     status: usersStatus,
     error: usersError,
@@ -107,7 +123,9 @@ export default function AdminDashboard() {
 
   const bookings = Array.isArray(bookingsData) ? bookingsData : [];
   const users = Array.isArray(usersData) ? usersData : [];
+  const trips = Array.isArray(tripsData) ? tripsData : [];
   const packages = Array.isArray(packagesData) ? packagesData : [];
+  const displayTrips = trips.length ? trips : mockTrips;
   const displayPackages = packages.length ? packages : mockTrips;
 
   const stats = useMemo(() => {
@@ -127,8 +145,20 @@ export default function AdminDashboard() {
       (sum, booking) => sum + (Number(booking.numberOfPeople) || 0),
       0,
     );
+    const totalTrips = displayTrips.length;
     const totalPackages = displayPackages.length;
-    const totalItinerary = displayPackages.reduce((sum, pkg: any) => {
+    const totalTripItinerary = displayTrips.reduce((sum, pkg: any) => {
+      if (Array.isArray(pkg.dayNight)) {
+        return sum + pkg.dayNight.length;
+      }
+
+      if (Array.isArray(pkg.itinerary)) {
+        return sum + pkg.itinerary.length;
+      }
+
+      return sum;
+    }, 0);
+    const totalPackageItinerary = displayPackages.reduce((sum, pkg: any) => {
       if (Array.isArray(pkg.dayNight)) {
         return sum + pkg.dayNight.length;
       }
@@ -151,12 +181,14 @@ export default function AdminDashboard() {
       pendingBookings,
       totalBookings,
       totalExpense,
-      totalItinerary,
+      totalPackageItinerary,
       totalPackages,
       totalTravelers,
+      totalTripItinerary,
+      totalTrips,
       totalUsers,
     };
-  }, [bookings, displayPackages, users]);
+  }, [bookings, displayPackages, displayTrips, users]);
 
   const monthlyBookings = useMemo(() => {
     const now = new Date();
@@ -188,7 +220,12 @@ export default function AdminDashboard() {
   }, [bookings]);
 
   const packageExpenseRows = useMemo(() => {
-    return displayPackages.slice(0, 5).map((pkg: any) => ({
+    return displayPackages.slice(0, 5).map((pkg: any, index) => ({
+      key:
+        pkg._id ||
+        pkg.id ||
+        pkg.slug ||
+        `${pkg.packageName || pkg.title || "tour-package"}-${index}`,
       name: pkg.packageName || pkg.title || "Tour Package",
       destination: pkg.destination || pkg.location || pkg.locationLabel || "N/A",
       expense: getPackageExpense(pkg),
@@ -210,8 +247,9 @@ export default function AdminDashboard() {
   const isLoading =
     bookingsStatus === "loading" ||
     packagesStatus === "loading" ||
+    tripsStatus === "loading" ||
     usersStatus === "loading";
-  const hasErrors = bookingsError || packagesError || usersError;
+  const hasErrors = bookingsError || packagesError || tripsError || usersError;
 
   const summaryCards = [
     {
@@ -231,9 +269,17 @@ export default function AdminDashboard() {
       color: "bg-emerald-50 text-emerald-700",
     },
     {
-      label: "Trips & Packages",
+      label: "Total Trips",
+      value: stats.totalTrips,
+      helper: `${stats.totalTripItinerary} itinerary days`,
+      href: "/admin/trips",
+      icon: Map,
+      color: "bg-sky-50 text-sky-700",
+    },
+    {
+      label: "Total Packages",
       value: stats.totalPackages,
-      helper: `${stats.totalItinerary} itinerary days`,
+      helper: `${stats.totalPackageItinerary} itinerary days`,
       href: "/admin/trips",
       icon: PackagePlus,
       color: "bg-violet-50 text-violet-700",
@@ -252,7 +298,9 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            NjoyHolidayz Dashboard
+          </h1>
           <p className="mt-2 text-gray-600">
             Track users, bookings, packages, itinerary days, and expenses.
           </p>
@@ -263,6 +311,7 @@ export default function AdminDashboard() {
           onClick={() => {
             reloadBookings();
             reloadPackages();
+            reloadTrips();
             reloadUsers();
           }}
           className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
@@ -283,11 +332,12 @@ export default function AdminDashboard() {
           Some live dashboard data could not be loaded.
           {bookingsError ? ` Bookings: ${bookingsError}` : ""}
           {packagesError ? ` Packages: ${packagesError}` : ""}
+          {tripsError ? ` Trips: ${tripsError}` : ""}
           {usersError ? ` Users: ${usersError}` : ""}
         </div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {summaryCards.map((card) => {
           const Icon = card.icon;
 
@@ -424,7 +474,7 @@ export default function AdminDashboard() {
 
         <div className="mt-6 space-y-4">
           {packageExpenseRows.map((pkg) => (
-            <div key={`${pkg.name}-${pkg.destination}`} className="space-y-2">
+            <div key={pkg.key} className="space-y-2">
               <div className="flex items-center justify-between gap-4 text-sm">
                 <div>
                   <p className="font-semibold text-gray-800">{pkg.name}</p>

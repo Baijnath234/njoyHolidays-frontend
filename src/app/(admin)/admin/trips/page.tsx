@@ -7,6 +7,7 @@ import { API_ENDPOINTS, API_CONFIG } from "@/config/api";
 import { mockTrips } from "@/data/trips";
 
 type FormattedTrip = {
+  rowKey: string;
   slug: string;
   title: string;
   price: string | number;
@@ -17,12 +18,13 @@ type FormattedTrip = {
   destination: string;
 };
 
-const formatApiTrip = (item: any): FormattedTrip => {
+const formatApiTrip = (item: any, index: number): FormattedTrip => {
   const slug = item.packageName
     ? item.packageName.toString().toLowerCase().replace(/\s+/g, "-")
     : item.slug || `trip-${Math.random().toString(36).substr(2, 6)}`;
 
   return {
+    rowKey: item._id || item.id || item.slug || `${slug}-${index}`,
     slug,
     title: item.packageName || item.title || "Untitled Trip",
     price: item.dayNight?.[0]?.hotelPrice || item.price || "N/A",
@@ -35,6 +37,7 @@ const formatApiTrip = (item: any): FormattedTrip => {
 };
 
 const fallbackTrips: FormattedTrip[] = mockTrips.map((item) => ({
+  rowKey: item.slug,
   slug: item.slug,
   title: item.title,
   price: item.price,
@@ -60,6 +63,7 @@ export default function AdminTrips() {
   }, [data, status]);
 
   const usingMockData = status === "error" || hasInvalidResponse || (!data?.length && status !== "loading");
+  const totalPackagesAdded = trips.length;
 
   return (
     <div className="space-y-6">
@@ -81,6 +85,20 @@ export default function AdminTrips() {
         </Link>
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-lg bg-white p-5 shadow">
+          <p className="text-sm font-medium text-gray-500">
+            Total Packages Added
+          </p>
+          <p className="mt-3 text-3xl font-bold text-gray-900">
+            {totalPackagesAdded}
+          </p>
+          <p className="mt-2 text-sm text-gray-500">
+            {usingMockData ? "Showing fallback packages" : "From package API"}
+          </p>
+        </div>
+      </div>
+
       {status === "loading" && (
         <div className="p-6 bg-white rounded-lg shadow">Loading trips...</div>
       )}
@@ -100,7 +118,7 @@ export default function AdminTrips() {
           </thead>
           <tbody>
             {trips.map((trip) => (
-              <tr key={trip.slug} className="border-t text-sm text-gray-700">
+              <tr key={trip.rowKey} className="border-t text-sm text-gray-700">
                 <td className="p-4">{trip.title}</td>
                 <td className="p-4">{trip.destination}</td>
                 <td className="p-4">{trip.duration}</td>

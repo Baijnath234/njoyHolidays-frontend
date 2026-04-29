@@ -18,6 +18,9 @@ const Page = () => {
   );
 
   const users = useMemo(() => data ?? [], [data]);
+  const totalUsers = users.length;
+  const activeUsers = users.filter((user) => user.isActive).length;
+  const inactiveUsers = totalUsers - activeUsers;
 
   if (status === "loading") {
     return <div className="p-6">Loading users...</div>;
@@ -34,6 +37,18 @@ const Page = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Admin Users</h1>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+        <div className="rounded-lg bg-white p-5 shadow">
+          <p className="text-sm font-medium text-gray-500">Total Users</p>
+          <p className="mt-3 text-3xl font-bold text-gray-900">
+            {totalUsers}
+          </p>
+          <p className="mt-2 text-sm text-gray-500">
+            {activeUsers} active, {inactiveUsers} inactive
+          </p>
+        </div>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="w-full border rounded-lg">
