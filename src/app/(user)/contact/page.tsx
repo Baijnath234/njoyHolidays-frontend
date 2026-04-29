@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import NavBar from "../../../components/Layout/nabar";
+import ContactForm from "@/components/common/ContactForm";
 
 export default function ContactPage() {
   return (
@@ -62,41 +63,7 @@ export default function ContactPage() {
             </motion.div>
 
             {/* Contact Form */}
-            <motion.form
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="bg-white/10 backdrop-blur-xl p-8 rounded-xl space-y-4"
-            >
-              <h2 className="text-2xl font-semibold mb-4">Send Enquiry</h2>
-
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full p-3 rounded-lg bg-white/10 border border-white/20"
-              />
-
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full p-3 rounded-lg bg-white/10 border border-white/20"
-              />
-
-              <input
-                type="text"
-                placeholder="Phone"
-                className="w-full p-3 rounded-lg bg-white/10 border border-white/20"
-              />
-
-              <textarea
-                placeholder="Your Message"
-                rows={4}
-                className="w-full p-3 rounded-lg bg-white/10 border border-white/20"
-              />
-
-              <button className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black py-3 rounded-lg font-semibold">
-                Send Message
-              </button>
-            </motion.form>
+            <ContactForm />
           </div>
 
           {/* Google Map */}

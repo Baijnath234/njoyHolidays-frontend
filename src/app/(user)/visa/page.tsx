@@ -1,9 +1,13 @@
-import React from 'react'
+import Visa from '@/components/welcome/Visa'
+import NavBar from '@/components/Layout/nabar'
+import Footer from '@/components/Layout/Footer'
 
 const page = () => {
   return (
     <div>
-      visa
+      <NavBar/>
+      <Visa />
+      <Footer/>
     </div>
   )
 }

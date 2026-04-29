@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { BookingProvider } from "@/context/BookingContext";
 
 export const metadata: Metadata = {
   title: "njoyHolidayz - Best Travel Expreince",
@@ -17,9 +18,11 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <BookingProvider>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </BookingProvider>
       </body>
     </html>
   );

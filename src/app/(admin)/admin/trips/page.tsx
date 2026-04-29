@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAuthFetch } from "@/hooks/useAuthFetch";
+import { useApi } from "@/hooks/useApi";
+import { API_ENDPOINTS, API_CONFIG } from "@/config/api";
 
 type FormattedTrip = {
   slug: number;
@@ -14,8 +15,12 @@ type FormattedTrip = {
 };
 
 export default function AdminTrips() {
-  const { data, status, error } = useAuthFetch<any[]>(
-    "http://192.168.1.3:8082/api/packages/getAllTourPackage",
+  const { data, status, error } = useApi<any[]>(
+    API_ENDPOINTS.PACKAGES.GET_ALL,
+    {
+      baseUrl: API_CONFIG.PACKAGES_API_URL,
+      skipAuth: true, // This endpoint doesn't require authentication
+    }
   );
 
   const trips = useMemo<FormattedTrip[]>(() => {

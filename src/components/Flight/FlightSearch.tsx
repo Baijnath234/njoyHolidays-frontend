@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useFetch } from "@/hooks/useApi";
+import { API_ENDPOINTS } from "@/config/api";
 
 interface Itinerary {
   legs: {
@@ -33,23 +35,44 @@ export default function FlightSearch() {
   console.log({flights});
   
   const [loading, setLoading] = useState(false);
+  const { makeRequest } = useFetch();
 
   const searchFlights = async () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `https://sky-scrapper.p.rapidapi.com/api/v2/flights/searchFlightsComplete?originSkyId=${from}&destinationSkyId=${to}&originEntityId=27544008&destinationEntityId=27537542&date=${departureDate}&returnDate=${arrivalDate}&cabinClass=economy&adults=1&sortBy=best&currency=USD&market=en-US&countryCode=US`,
+      const queryParams = new URLSearchParams({
+        originSkyId: from,
+        destinationSkyId: to,
+        originEntityId: "27544008",
+        destinationEntityId: "27537542",
+        date: departureDate,
+        returnDate: arrivalDate,
+        cabinClass: "economy",
+        adults: "1",
+        sortBy: "best",
+        currency: "USD",
+        market: "en-US",
+        countryCode: "US",
+      }).toString();
+
+      const { data, error } = await makeRequest<any>(
+        `${API_ENDPOINTS.FLIGHTS.SEARCH}?${queryParams}`,
+        "GET",
+        undefined,
         {
-          method: "GET",
+          baseUrl: "https://sky-scrapper.p.rapidapi.com",
+          skipAuth: true,
           headers: {
-            "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY",
+            "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "YOUR_RAPIDAPI_KEY",
             "X-RapidAPI-Host": "sky-scrapper.p.rapidapi.com",
           },
         }
       );
 
-      const data = await res.json();
+      if (error) {
+        throw new Error(error);
+      }
 
       // adjust based on API response
       const results =

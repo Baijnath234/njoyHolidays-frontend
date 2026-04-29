@@ -1,11 +1,40 @@
+"use client";
+
 import { Trip } from "@/data/trips";
 import Image from "next/image";
+import { useBooking } from "@/hooks/useBooking";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type Props = {
   trip: Trip;
 };
 
 export default function ProductDetails({ trip }: Props) {
+  const { addBooking } = useBooking();
+  const router = useRouter();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToBooking = () => {
+    addBooking({
+      slug: trip.slug,
+      title: trip.title,
+      price: trip.price,
+      unit: trip.unit,
+      image: trip.image,
+      duration: trip.duration,
+    });
+
+    setAdded(true);
+
+    // Reset the button state after 2 seconds
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleProceedToBooking = () => {
+    router.push("/booking");
+  };
+
   return (
     <main className="max-w-6xl mx-auto px-6 py-10 mt-30">
       {/* HERO */}
@@ -30,9 +59,25 @@ export default function ProductDetails({ trip }: Props) {
             ₹{trip.price} / {trip.unit}
           </p>
 
-          <button className="mt-6 bg-teal-600 text-white px-6 py-3 rounded-lg">
-            {trip.buttonLabel}
-          </button>
+          <div className="flex gap-4 mt-6">
+            <button
+              onClick={handleAddToBooking}
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                added
+                  ? "bg-green-600 text-white"
+                  : "bg-teal-600 text-white hover:bg-teal-700"
+              }`}
+            >
+              {added ? "✓ Added to Booking" : "Add to Booking"}
+            </button>
+
+            <button
+              onClick={handleProceedToBooking}
+              className="px-6 py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300"
+            >
+              Go to Booking
+            </button>
+          </div>
         </div>
       </div>
 

@@ -3,12 +3,14 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { useFetch } from "@/hooks/useApi";
+import { API_ENDPOINTS } from "@/config/api";
 
 export default function ForgotPassword() {
 
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const { makeRequest } = useFetch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,25 +23,19 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-
-      const res = await fetch("http://192.168.1.7:8081/api/auth/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const { data, error } = await makeRequest<any>(
+        API_ENDPOINTS.AUTH.FORGOT_PASSWORD,
+        "POST",
+        {
           username: email
-        }),
-      });
+        },
+      );
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to send reset email");
+      if (error) {
+        throw new Error(error);
       }
 
       alert("Reset link sent to your email");
-
       setEmail("");
 
     } catch (error) {

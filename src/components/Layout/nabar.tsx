@@ -26,12 +26,28 @@ export default function NavBar() {
       setIsScrolled(window.pageYOffset > 10);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      const isHamburgerButton = target.closest('button[aria-label="Toggle mobile menu"]');
+      const isMenuContainer = target.closest('.mobile-menu-container');
+      const isProfileContainer = target.closest('.profile-modal-container');
+
+      if (menuOpen && !isMenuContainer && !isHamburgerButton) {
+        setMenuOpen(false);
+      }
+      if (showProfileModal && !isProfileContainer) {
+        setShowProfileModal(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [menuOpen, showProfileModal]);
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -119,7 +135,7 @@ export default function NavBar() {
             </button>
 
             {showProfileModal && (
-              <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-[#1a2238] rounded-xl shadow-lg p-3 space-y-2 text-sm">
+              <div className="profile-modal-container absolute right-0 mt-3 w-48 bg-white dark:bg-[#1a2238] rounded-xl shadow-lg p-3 space-y-2 text-sm z-50">
                 <Link href="/profile" className="block hover:underline">
                   👤 Profile
                 </Link>
@@ -153,17 +169,18 @@ export default function NavBar() {
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden text-black dark:text-white"
+        className="md:hidden flex flex-col space-y-1 p-2"
         onClick={toggleMenu}
+        aria-label="Toggle mobile menu"
       >
-        ☰
+        <span className={`block w-6 h-0.5 transition-all duration-300 ${theme === "light" ? "bg-black" : "bg-white"} ${menuOpen ? "rotate-45 translate-y-1.5" : ""}`}></span>
+        <span className={`block w-6 h-0.5 transition-all duration-300 ${theme === "light" ? "bg-black" : "bg-white"} ${menuOpen ? "opacity-0" : ""}`}></span>
+        <span className={`block w-6 h-0.5 transition-all duration-300 ${theme === "light" ? "bg-black" : "bg-white"} ${menuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}></span>
       </button>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div
-          className={`md:hidden absolute top-full left-0 right-0 px-6 py-6 space-y-4 shadow-lg ${navBg}`}
-        >
+        <div className={`mobile-menu-container md:hidden absolute top-full left-0 right-0 px-6 py-6 space-y-4 shadow-lg z-50 ${navBg}`}>
           {navLinks.map((link) => (
             <Link
               key={link.label}

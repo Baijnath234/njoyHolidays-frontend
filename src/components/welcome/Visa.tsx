@@ -9,6 +9,7 @@ import {
   FaUserGraduate,
 } from "react-icons/fa";
 import { useTheme } from "@/app/context/ThemeContext";
+import ContactForm from "@/components/common/ContactForm";
 
 const visaServices = [
   {
@@ -166,33 +167,11 @@ const Visa = () => {
 
         {/* FORM */}
         <div className={`${cardStyle} backdrop-blur-xl border p-10 rounded-2xl`}>
-          <div className="text-center mb-10">
-            <h3 className="text-3xl font-semibold">
-              Request Visa Consultation
-            </h3>
-            <p className={`${textMuted} mt-2`}>
-              Talk to our experts.
-            </p>
-          </div>
-
-          <form className="grid md:grid-cols-2 gap-6">
-            {["Full Name", "Email Address", "Country", "Visa Type"].map((p, i) => (
-              <input key={i} className={`${inputStyle} p-4 rounded-lg`} placeholder={p} />
-            ))}
-
-            <textarea
-              className={`${inputStyle} p-4 rounded-lg md:col-span-2`}
-              rows={4}
-              placeholder="Describe Your Visa Issue"
-            />
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              className="bg-gradient-to-r from-cyan-400 to-blue-500 text-black py-3 px-8 rounded-lg font-semibold w-fit"
-            >
-              Request Consultation
-            </motion.button>
-          </form>
+          <ContactForm
+            title="Request Visa Consultation"
+            buttonLabel="Request Consultation"
+            showVisaFields
+          />
         </div>
 
       </div>

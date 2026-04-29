@@ -6,9 +6,20 @@ import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import Banner1 from "../../../public/asset/images/Dadra.jpg";
 import { useTheme } from "@/app/context/ThemeContext";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function WelcomePage() {
   const { theme } = useTheme();
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   // 🎨 THEME BACKGROUND
   const sectionBg =
@@ -87,7 +98,7 @@ export default function WelcomePage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9 }}
           whileHover={{ scale: 1.02 }}
-          className={`absolute right-8 top-1/2 -translate-y-1/2 backdrop-blur-2xl border p-8 rounded-3xl max-w-md shadow-xl
+          className={`absolute right-4 md:right-8 top-1/2 -translate-y-1/2 backdrop-blur-2xl border p-6 md:p-8 rounded-3xl max-w-sm md:max-w-md shadow-xl
           ${
             theme === "light"
               ? "bg-white/70 border-gray-200 text-black"
@@ -109,23 +120,35 @@ export default function WelcomePage() {
         </motion.div>
 
         {/* SEARCH BAR */}
-        <motion.div
+        <motion.form
+          onSubmit={handleSearch}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className={`absolute bottom-6 right-8 flex items-center rounded-full px-5 py-3 shadow-xl gap-4
+          className={`absolute bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 flex items-center rounded-full px-2 py-2 shadow-xl gap-2
           ${
             theme === "light"
               ? "bg-white text-black"
               : "bg-white/90 text-black"
           }`}
         >
-          <span className="text-sm">Explore destinations</span>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search destinations..."
+            className={`outline-none bg-transparent px-4 py-2 text-sm w-32 sm:w-48 md:w-64 placeholder-gray-600 ${
+              theme === "light" ? "text-black" : "text-gray-700"
+            }`}
+          />
 
-          <button className="bg-blue-600 p-2 rounded-full text-white hover:scale-110 transition">
+          <button 
+            type="submit"
+            className="bg-blue-600 p-2 rounded-full text-white hover:scale-110 transition"
+          >
             <FaSearch size={14} />
           </button>
-        </motion.div>
+        </motion.form>
 
         {/* CURVE */}
         <div
