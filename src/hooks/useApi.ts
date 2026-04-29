@@ -19,6 +19,41 @@ export interface UseApiResponse<T> {
   loading: boolean;
 }
 
+const parseResponseBody = async <T,>(res: Response): Promise<T | null> => {
+  if (res.status === 204) {
+    return null;
+  }
+
+  const text = await res.text();
+
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return text as T;
+  }
+};
+
+const getErrorMessage = (data: unknown, fallback: string): string => {
+  if (typeof data === "string" && data.trim()) {
+    return data;
+  }
+
+  if (data && typeof data === "object") {
+    const value = data as Record<string, unknown>;
+    const message = value.message || value.error || value.detail;
+
+    if (typeof message === "string" && message.trim()) {
+      return message;
+    }
+  }
+
+  return fallback;
+};
+
 /**
  * Generic API Hook for calling external APIs
  * Handles headers, authentication, and error management
@@ -38,6 +73,7 @@ export function useApi<T>(
     enabled: optionsEnabled = true,
     ...fetchOptions
   } = options;
+  const fetchOptionsKey = JSON.stringify(fetchOptions);
 
   const fetchData = useCallback(async () => {
     if (!enabled || !optionsEnabled) {
@@ -75,19 +111,21 @@ export function useApi<T>(
         headers,
       });
 
+      const responseData = await parseResponseBody<T>(res);
+
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || `Fetch failed with status ${res.status}`);
+        throw new Error(
+          getErrorMessage(responseData, `Fetch failed with status ${res.status}`),
+        );
       }
 
-      const responseData = (await res.json()) as T;
       setData(responseData);
       setStatus("success");
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : String(err));
     }
-  }, [url, baseUrl, skipAuth, enabled, optionsEnabled, fetchOptions]);
+  }, [url, baseUrl, skipAuth, enabled, optionsEnabled, fetchOptionsKey]);
 
   useEffect(() => {
     fetchData();
@@ -136,12 +174,12 @@ export function useFetch() {
           ...options,
         });
 
-        const responseData = (await res.json()) as T;
+        const responseData = await parseResponseBody<T>(res);
 
         if (!res.ok) {
           return {
             data: null,
-            error: (responseData as any)?.message || `Request failed with status ${res.status}`,
+            error: getErrorMessage(responseData, `Request failed with status ${res.status}`),
             status: res.status,
           };
         }
@@ -182,6 +220,7 @@ export function useFlightApi<T>(
       url.searchParams.append(key, String(value));
     });
   }
+  const requestUrl = url.toString();
 
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<FetchStatus>("idle");
@@ -202,7 +241,7 @@ export function useFlightApi<T>(
     }
 
     try {
-      const res = await fetch(url.toString(), {
+      const res = await fetch(requestUrl, {
         method: "GET",
         headers: {
           "X-RapidAPI-Key": API_CONFIG.RAPIDAPI_KEY,
@@ -210,19 +249,21 @@ export function useFlightApi<T>(
         },
       });
 
+      const responseData = await parseResponseBody<T>(res);
+
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || `Flight API failed with status ${res.status}`);
+        throw new Error(
+          getErrorMessage(responseData, `Flight API failed with status ${res.status}`),
+        );
       }
 
-      const responseData = (await res.json()) as T;
       setData(responseData);
       setStatus("success");
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : String(err));
     }
-  }, [url, enabled]);
+  }, [requestUrl, enabled]);
 
   useEffect(() => {
     fetchData();

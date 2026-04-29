@@ -8,6 +8,7 @@ import { StaticImageData } from "next/image";
 interface Trip {
   image: string | StaticImageData;
   slug: string;
+  title: string;
   locationLabel: string;
   duration: string;
   location: string;
@@ -37,7 +38,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
 
         {/* Top Tags */}
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 text-xs rounded-full font-medium shadow">
-          📍 {trip.locationLabel}
+          {"\uD83D\uDCCD"} {trip.locationLabel}
         </div>
 
         <div className="absolute top-3 right-3 bg-black/70 text-white text-xs px-3 py-1 rounded-full">
@@ -47,7 +48,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
         {/* Bottom Title Overlay */}
         <div className="absolute bottom-3 left-3 right-3 text-white">
           <h3 className="text-lg font-semibold leading-snug">
-            {trip.slug}
+            {trip.title}
           </h3>
         </div>
       </div>
@@ -66,7 +67,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
         {/* Price */}
         <div className="flex items-center justify-between mb-4">
           <div className="text-xl font-bold text-gray-800">
-            ₹ {trip.price.toLocaleString()}
+            {"\u20b9"} {trip.price.toLocaleString()}
             <span className="text-sm font-normal text-gray-500">
               {" "} / {trip.unit}
             </span>

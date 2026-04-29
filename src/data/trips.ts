@@ -10,7 +10,7 @@ export type ItineraryDay = {
 export type Trip = {
   slug: string;
   title: string;
-  image: StaticImageData;
+  image: string | StaticImageData;
   locationLabel: string;
   duration: string;
   location: string;

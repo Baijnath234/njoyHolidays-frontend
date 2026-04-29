@@ -42,6 +42,8 @@ export default function ProductDetails({ trip }: Props) {
         <Image
           src={trip.image}
           alt={trip.title}
+          width={900}
+          height={600}
           loading="lazy"
           className="rounded-xl"
         />
@@ -56,7 +58,7 @@ export default function ProductDetails({ trip }: Props) {
           </p>
 
           <p className="mt-3 text-xl font-bold">
-            ₹{trip.price} / {trip.unit}
+            {"\u20b9"}{trip.price} / {trip.unit}
           </p>
 
           <div className="flex gap-4 mt-6">
@@ -68,7 +70,7 @@ export default function ProductDetails({ trip }: Props) {
                   : "bg-teal-600 text-white hover:bg-teal-700"
               }`}
             >
-              {added ? "✓ Added to Booking" : "Add to Booking"}
+              {added ? "\u2713 Added to Booking" : "Add to Booking"}
             </button>
 
             <button

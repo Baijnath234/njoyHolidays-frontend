@@ -52,6 +52,7 @@ export const API_ENDPOINTS = {
   PACKAGES: {
     GET_ALL: "/api/packages/getAllTourPackage",
     GET_ONE: "/api/packages/:id",
+    CREATE: "/api/packages/tourPackage",
   },
   
   // Users endpoints

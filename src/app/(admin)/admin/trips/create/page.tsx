@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Accordion from "@/components/Accordion";
 import { generateTripPDF } from "@/lib/generatePDF";
 import { Room, Trip } from "@/types";
-
+import { API_CONFIG, API_ENDPOINTS } from "@/config/api";
 
 type DayNight = {
   flightSource: string;
@@ -24,7 +24,6 @@ type DayNight = {
 };
 
 type TourPackagePayload = {
-  // packageId: number;
   packageName: string;
   noOfPersons: string;
   duration: string;
@@ -35,6 +34,8 @@ type TourPackagePayload = {
 
 export default function CreateTrip() {
   const router = useRouter();
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [trip, setTrip] = useState<Trip>({
     slug: "",
@@ -62,24 +63,6 @@ export default function CreateTrip() {
     ],
   });
 
-  const generateSlug = (destination: string) =>
-    destination.toLowerCase().replace(/\s+/g, "-");
-
-  const slug = generateSlug(trip.destination);
-
-  const updatedTrip = {
-    ...trip,
-    slug, 
-  };
-
-  // Removed localStorage access that was causing SSR issues
-  // const existing = JSON.parse(localStorage.getItem("trips") || "[]");
-  // localStorage.setItem(
-  //   "trips",
-  //   JSON.stringify([...existing, updatedTrip]) 
-  // );
-
-  // update room
   const updateRoom = <K extends keyof Room>(
     index: number,
     field: K,
@@ -102,15 +85,68 @@ export default function CreateTrip() {
 
   const totalPrice = trip.rooms.reduce((sum, r) => sum + r.rate, 0);
 
+  const validateTrip = () => {
+    if (!trip.destination.trim()) {
+      return "Destination is required.";
+    }
 
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc0NDQyODk1LCJleHAiOjE3NzQ1MjkyOTV9.1Sw0TTc8BjZZHCrjvTSWcLs1Nw0fDy0uAagyiDf57Mk";
+    if (!trip.flightSource.trim()) {
+      return "Flight source is required.";
+    }
 
-  // ✅ UPDATED SUBMIT FUNCTION (API INTEGRATION)
+    if (trip.adults + trip.children <= 0) {
+      return "Please add at least one traveller.";
+    }
+
+    if (trip.days <= 0 || trip.nights < 0) {
+      return "Please enter a valid duration.";
+    }
+
+    const invalidRoom = trip.rooms.find(
+      (room) =>
+        !room.roomType.trim() ||
+        !Number.isFinite(room.pax) ||
+        !Number.isFinite(room.rate) ||
+        room.pax <= 0 ||
+        room.rate <= 0,
+    );
+
+    if (invalidRoom) {
+      return "Please complete room type, pax, and rate for every room.";
+    }
+
+    return null;
+  };
+
+  const readErrorMessage = async (res: Response) => {
+    const fallback = `API failed with status ${res.status}`;
+    const text = await res.text();
+
+    if (!text) {
+      return fallback;
+    }
+
+    try {
+      const data = JSON.parse(text) as { message?: string; error?: string };
+      return data.message || data.error || fallback;
+    } catch {
+      return text;
+    }
+  };
+
   const handleSubmit = async () => {
+    const validationError = validateTrip();
+
+    if (validationError) {
+      setSubmitError(validationError);
+      return;
+    }
+
+    setSubmitError(null);
+    setIsSubmitting(true);
+
     try {
       const payload: TourPackagePayload = {
-        // packageId: 1,
         packageName: `${trip.destination} Trip`,
         noOfPersons: String(trip.adults + trip.children),
         duration: `${trip.days} Days ${trip.nights} Nights`,
@@ -139,25 +175,33 @@ export default function CreateTrip() {
         ),
       };
 
-      const res = await fetch(
-        "http://192.168.1.13:8082/api/packages/tourPackage",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${TOKEN}`,
-          },
-          body: JSON.stringify(payload),
+      const url = `${API_CONFIG.PACKAGES_API_URL}${API_ENDPOINTS.PACKAGES.CREATE}`;
+      const localToken = window.localStorage.getItem("token");
+
+      if (!localToken) {
+        throw new Error("Authentication token not found. Please log in again.");
+      }
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localToken}`,
         },
-      );
+        body: JSON.stringify(payload),
+      });
 
-      if (!res.ok) throw new Error("API failed");
+      if (!res.ok) {
+        throw new Error(await readErrorMessage(res));
+      }
 
-      alert("Trip created successfully ✅");
+      alert("Trip created successfully");
       router.push("/admin/trips");
     } catch (error) {
       console.error(error);
-      alert("Something went wrong ❌");
+      setSubmitError(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -320,14 +364,21 @@ export default function CreateTrip() {
 
       {/* Summary */}
       <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-        <h2 className="font-bold">Total Price: ₹{totalPrice}</h2>
+        <h2 className="font-bold">Total Price: {"\u20b9"}{totalPrice}</h2>
+
+        {submitError && (
+          <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+            {submitError}
+          </div>
+        )}
 
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleSubmit}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
+            disabled={isSubmitting}
+            className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-60"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
 
           <button

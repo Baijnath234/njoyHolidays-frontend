@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import baliImage from "../../../public/asset/images/Bali Adveture.jpg";
 import Vietnam from "../../../public/asset/images/Vietnam.jpg";
 import dubai from "../../../public/asset/images/dubai.jpg";
@@ -10,22 +10,46 @@ import Paris from "../../../public/asset/images/Paris.jpg";
 import { StaticImageData } from "next/image";
 import TripCard from "../TripCard";
 import { useTheme } from "@/app/context/ThemeContext";
+import { useApi } from "@/hooks/useApi";
+import { API_CONFIG, API_ENDPOINTS } from "@/config/api";
+import { mockTrips as defaultMockTrips } from "@/data/trips";
 
 export type Trip = {
   slug: string;
-  image: StaticImageData;
+  title: string;
+  image: string | StaticImageData;
   locationLabel: string;
   duration: string;
   location: string;
   price: number;
   unit: string;
   buttonLabel: string;
+  partnerLogo?: string;
+  partnerText?: string;
 };
+
+const defaultImage =
+  "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80";
+
+const mapApiTripToDisplay = (item: any, index: number): Trip => ({
+  slug: item.packageName
+    ? item.packageName.toString().toLowerCase().replace(/\s+/g, "-")
+    : item.slug || `package-${index}`,
+  title: item.packageName || item.title || "Tour Package",
+  image: item.imageUrl || defaultImage,
+  locationLabel: item.destination || item.locationLabel || "Unknown",
+  duration: item.duration || "N/A",
+  location: item.destination || item.location || "Unknown",
+  price: Number(item.price || item.dayNight?.[0]?.hotelPrice || 0) || 0,
+  unit: item.unit || "person",
+  buttonLabel: item.buttonLabel || "Book Now",
+});
 
 export const mockTrips: Trip[] = [
   {
     image: baliImage,
     slug: "Bali-adventure-package",
+    title: "Bali Adventure Package",
     locationLabel: "Bali, Indonesia",
     duration: "7 Days",
     location: "Indonesia",
@@ -36,6 +60,7 @@ export const mockTrips: Trip[] = [
   {
     image: Vietnam,
     slug: "Vietnam-Package",
+    title: "Vietnam Package",
     locationLabel: "Vietnam",
     duration: "5 Days",
     location: "Hanoi",
@@ -46,6 +71,7 @@ export const mockTrips: Trip[] = [
   {
     image: dubai,
     slug: "Dubai-Package",
+    title: "Dubai Package",
     locationLabel: "Dubai, UAE",
     duration: "3 Days",
     location: "Dubai, UAE",
@@ -56,6 +82,7 @@ export const mockTrips: Trip[] = [
   {
     image: malaysia,
     slug: "Malaysia-Package",
+    title: "Malaysia Package",
     locationLabel: "Malaysia",
     duration: "3 Days",
     location: "Langkawi",
@@ -66,6 +93,7 @@ export const mockTrips: Trip[] = [
   {
     image: colombo,
     slug: "Sri-lanka-Package",
+    title: "Sri Lanka Package",
     locationLabel: "Colombo",
     duration: "3 Days",
     location: "colombo",
@@ -76,6 +104,7 @@ export const mockTrips: Trip[] = [
   {
     image: Paris,
     slug: "France-Package",
+    title: "France Package",
     locationLabel: "France",
     duration: "3 Days",
     location: "Paris",
@@ -87,15 +116,26 @@ export const mockTrips: Trip[] = [
 
 const Packages = () => {
   const { theme } = useTheme();
+  const { data, status, error, reload } = useApi<any[]>(API_ENDPOINTS.PACKAGES.GET_ALL, {
+    baseUrl: API_CONFIG.PACKAGES_API_URL,
+    skipAuth: true,
+  });
+  const hasInvalidResponse = status === "success" && !Array.isArray(data);
+
+  const packages = useMemo<Trip[]>(() => {
+    if (status === "success" && Array.isArray(data) && data.length) {
+      return data.map(mapApiTripToDisplay);
+    }
+
+    return defaultMockTrips;
+  }, [data, status]);
+
+  const isUsingMock = status === "error" || hasInvalidResponse || (!data?.length && status !== "loading");
 
   // 🎨 THEME UI
-  const textColor =
-    theme === "light" ? "text-black" : "text-white";
+  const textColor = theme === "light" ? "text-black" : "text-white";
 
-  const overlayStyle =
-    theme === "light"
-      ? "bg-white/40"
-      : "bg-black/40";
+  const overlayStyle = theme === "light" ? "bg-white/40" : "bg-black/40";
 
   return (
     <>
@@ -133,10 +173,25 @@ const Packages = () => {
 
       {/* Packages */}
       <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-10 mt-150 mb-20">
-        {mockTrips.map((trip, index) => (
+        {packages.map((trip, index) => (
           <TripCard key={index} trip={trip} />
         ))}
       </div>
+
+      {isUsingMock && (
+        <div className="max-w-6xl mx-auto rounded-lg bg-yellow-50 border border-yellow-200 p-4 text-yellow-800">
+          Unable to reach the live packages API. Showing fallback mock packages instead.
+          {hasInvalidResponse ? " Error: Package API returned an invalid response." : ""}
+          {error ? ` Error: ${error}` : ""}
+          <button
+            type="button"
+            onClick={reload}
+            className="ml-3 font-semibold underline"
+          >
+            Retry
+          </button>
+        </div>
+      )}
 
       <section></section>
     </>
