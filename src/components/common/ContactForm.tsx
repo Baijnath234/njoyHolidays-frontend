@@ -32,6 +32,18 @@ const ContactForm = ({
     theme === "light"
       ? "w-full p-3 rounded-lg bg-white border border-gray-200 text-black"
       : "w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white";
+  const formStyle =
+    theme === "light"
+      ? "w-full bg-gray-100 border border-gray-200 text-black"
+      : "w-full bg-white/10 border border-white/10 text-white";
+  const successStyle =
+    theme === "light"
+      ? "rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 p-4"
+      : "rounded-lg bg-emerald-500/10 border border-emerald-500 text-emerald-100 p-4";
+  const errorStyle =
+    theme === "light"
+      ? "rounded-lg bg-red-50 border border-red-300 text-red-800 p-4"
+      : "rounded-lg bg-red-500/10 border border-red-500 text-red-100 p-4";
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -89,18 +101,18 @@ const ContactForm = ({
       onSubmit={handleSubmit}
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      className="w-full bg-white/10 backdrop-blur-xl p-4 sm:p-8 rounded-xl space-y-4"
+      className={`${formStyle} backdrop-blur-xl p-4 sm:p-8 rounded-xl space-y-4`}
     >
       <h2 className="text-xl sm:text-2xl font-semibold mb-4">{title}</h2>
 
       {status === "success" && (
-        <div className="rounded-lg bg-emerald-500/10 border border-emerald-500 text-emerald-100 p-4">
+        <div className={successStyle}>
           Your enquiry was sent successfully. We will contact you soon.
         </div>
       )}
 
       {status === "error" && (
-        <div className="rounded-lg bg-red-500/10 border border-red-500 text-red-100 p-4">
+        <div className={errorStyle}>
           {errorMessage}
         </div>
       )}
