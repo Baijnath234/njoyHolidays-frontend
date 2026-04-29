@@ -78,7 +78,7 @@ const Visa = () => {
       <div className="absolute -bottom-40 -right-40 w-[420px] h-[420px] bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute top-40 right-20 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* HERO */}
         <motion.div
@@ -166,7 +166,7 @@ const Visa = () => {
         </div>
 
         {/* FORM */}
-        <div className={`${cardStyle} backdrop-blur-xl border p-10 rounded-2xl`}>
+        <div className={`${cardStyle} w-full max-w-3xl mx-auto backdrop-blur-xl border p-4 sm:p-8 lg:p-10 rounded-2xl`}>
           <ContactForm
             title="Request Visa Consultation"
             buttonLabel="Request Consultation"

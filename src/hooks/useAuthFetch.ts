@@ -12,6 +12,7 @@ export function useAuthFetch<T>(
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<FetchStatus>("idle");
   const [error, setError] = useState<string | null>(null);
+  const optionsKey = JSON.stringify(options);
 
   const fetchData = useCallback(async () => {
     if (!enabled) {
@@ -56,7 +57,7 @@ export function useAuthFetch<T>(
       setStatus("error");
       setError(err instanceof Error ? err.message : String(err));
     }
-  }, [url, enabled, options]);
+  }, [url, enabled, optionsKey]);
 
   useEffect(() => {
     fetchData();

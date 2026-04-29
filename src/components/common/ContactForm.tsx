@@ -89,9 +89,9 @@ const ContactForm = ({
       onSubmit={handleSubmit}
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      className="bg-white/10 backdrop-blur-xl p-8 rounded-xl space-y-4"
+      className="w-full bg-white/10 backdrop-blur-xl p-4 sm:p-8 rounded-xl space-y-4"
     >
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <h2 className="text-xl sm:text-2xl font-semibold mb-4">{title}</h2>
 
       {status === "success" && (
         <div className="rounded-lg bg-emerald-500/10 border border-emerald-500 text-emerald-100 p-4">
@@ -159,7 +159,7 @@ const ContactForm = ({
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black py-3 rounded-lg font-semibold hover:scale-105 transition"
+        className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black py-3 px-3 rounded-lg font-semibold text-sm sm:text-base hover:scale-105 transition"
       >
         {status === "loading" ? "Sending..." : buttonLabel}
       </button>
