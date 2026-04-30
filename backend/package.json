@@ -1,7 +1,7 @@
 {
   "name": "njoyholidayz-backend",
   "version": "1.0.0",
-  "description": "Node.js, Express, and MySQL backend for NjoyHolidayz.",
+  "description": "Node.js, Express, and MongoDB backend for NjoyHolidayz.",
   "main": "src/server.js",
   "scripts": {
     "dev": "node src/server.js",
@@ -11,10 +11,10 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.5"
+    "mongoose": "^8.23.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
