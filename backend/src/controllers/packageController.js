@@ -1,21 +1,19 @@
-const { pool } = require("../config/db");
+const Package = require("../models/Package");
 
-const mapPackageRow = (row) => ({
-  id: String(row.id),
-  title: row.title,
-  packageName: row.title,
-  destination: row.destination,
-  duration: row.duration,
-  price: Number(row.price || 0),
-  createdAt: row.created_at,
+const mapPackage = (tourPackage) => ({
+  id: tourPackage._id.toString(),
+  title: tourPackage.title,
+  packageName: tourPackage.title,
+  destination: tourPackage.destination,
+  duration: tourPackage.duration,
+  price: Number(tourPackage.price || 0),
+  createdAt: tourPackage.createdAt,
 });
 
 const getPackages = async (_req, res) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM packages ORDER BY created_at DESC",
-  );
+  const packages = await Package.find().sort({ createdAt: -1 });
 
-  res.json(rows.map(mapPackageRow));
+  res.json(packages.map(mapPackage));
 };
 
 const createPackage = async (req, res) => {
@@ -26,16 +24,14 @@ const createPackage = async (req, res) => {
     return res.status(400).json({ message: "Package title is required." });
   }
 
-  const [result] = await pool.query(
-    "INSERT INTO packages (title, destination, duration, price) VALUES (?, ?, ?, ?)",
-    [packageTitle, destination, duration, Number(price) || 0],
-  );
+  const tourPackage = await Package.create({
+    title: packageTitle,
+    destination,
+    duration,
+    price: Number(price) || 0,
+  });
 
-  const [rows] = await pool.query("SELECT * FROM packages WHERE id = ?", [
-    result.insertId,
-  ]);
-
-  res.status(201).json(mapPackageRow(rows[0]));
+  res.status(201).json(mapPackage(tourPackage));
 };
 
 module.exports = {

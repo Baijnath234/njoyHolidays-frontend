@@ -1,45 +1,23 @@
-const { pool } = require("../config/db");
+const Booking = require("../models/Booking");
 
-const parseJsonField = (value) => {
-  if (!value) {
-    return [];
-  }
-
-  if (Array.isArray(value)) {
-    return value;
-  }
-
-  if (typeof value === "object") {
-    return value;
-  }
-
-  try {
-    return JSON.parse(value);
-  } catch {
-    return [];
-  }
-};
-
-const mapBookingRow = (row) => ({
-  id: String(row.id),
-  fullName: row.full_name,
-  email: row.email,
-  phone: row.phone,
-  numberOfPeople: row.number_of_people,
-  travelDate: row.travel_date,
-  specialRequests: row.special_requests || "",
-  status: row.status,
-  packages: parseJsonField(row.packages),
-  totalAmount: Number(row.total_amount || 0),
-  createdAt: row.created_at,
+const mapBooking = (booking) => ({
+  id: booking._id.toString(),
+  fullName: booking.fullName,
+  email: booking.email,
+  phone: booking.phone,
+  numberOfPeople: booking.numberOfPeople,
+  travelDate: booking.travelDate,
+  specialRequests: booking.specialRequests || "",
+  status: booking.status,
+  packages: booking.packages || [],
+  totalAmount: Number(booking.totalAmount || 0),
+  createdAt: booking.createdAt,
 });
 
 const getBookings = async (_req, res) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM bookings ORDER BY created_at DESC",
-  );
+  const bookings = await Booking.find().sort({ createdAt: -1 });
 
-  res.json(rows.map(mapBookingRow));
+  res.json(bookings.map(mapBooking));
 };
 
 const createBooking = async (req, res) => {
@@ -60,27 +38,18 @@ const createBooking = async (req, res) => {
     });
   }
 
-  const [result] = await pool.query(
-    `INSERT INTO bookings
-      (full_name, email, phone, number_of_people, travel_date, special_requests, packages, total_amount)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [
-      fullName,
-      email,
-      phone,
-      Number(numberOfPeople) || 1,
-      travelDate,
-      specialRequests,
-      JSON.stringify(packages),
-      Number(totalAmount) || 0,
-    ],
-  );
+  const booking = await Booking.create({
+    fullName,
+    email,
+    phone,
+    numberOfPeople: Number(numberOfPeople) || 1,
+    travelDate,
+    specialRequests,
+    packages,
+    totalAmount: Number(totalAmount) || 0,
+  });
 
-  const [rows] = await pool.query("SELECT * FROM bookings WHERE id = ?", [
-    result.insertId,
-  ]);
-
-  res.status(201).json(mapBookingRow(rows[0]));
+  res.status(201).json(mapBooking(booking));
 };
 
 const updateBooking = async (req, res) => {
@@ -91,23 +60,24 @@ const updateBooking = async (req, res) => {
     return res.status(400).json({ message: "Invalid booking status." });
   }
 
-  const [result] = await pool.query(
-    "UPDATE bookings SET status = ? WHERE id = ?",
-    [status, id],
+  const booking = await Booking.findByIdAndUpdate(
+    id,
+    { status },
+    { new: true },
   );
 
-  if (result.affectedRows === 0) {
+  if (!booking) {
     return res.status(404).json({ message: "Booking not found." });
   }
 
-  res.json({ message: "Booking updated successfully." });
+  res.json(mapBooking(booking));
 };
 
 const deleteBooking = async (req, res) => {
   const { id } = req.params;
-  const [result] = await pool.query("DELETE FROM bookings WHERE id = ?", [id]);
+  const booking = await Booking.findByIdAndDelete(id);
 
-  if (result.affectedRows === 0) {
+  if (!booking) {
     return res.status(404).json({ message: "Booking not found." });
   }
 
